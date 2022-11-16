@@ -1,0 +1,1633 @@
+digraph G {
+ranksep="1.3";
+subgraph cluster_root {
+color="#000000";
+fillcolor="#bab6ae";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="root \n: Root";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\full_system&#61;false&#10;\sim_quantum&#61;0&#10;\time_sync_enable&#61;false&#10;\time_sync_period&#61;100000000000&#10;\time_sync_spin_threshold&#61;100000000";
+subgraph cluster_system {
+color="#000000";
+fillcolor="#e4e7eb";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="system \n: SimpleSeSystem";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="boot_osflags&#61;a&#10;\cache_line_size&#61;64&#10;\eventq_index&#61;0&#10;\exit_on_work_items&#61;false&#10;\init_param&#61;0&#10;\kernel&#61;&#10;\kernel_addr_check&#61;true&#10;\kernel_extras&#61;&#10;\load_addr_mask&#61;18446744073709551615&#10;\load_offset&#61;0&#10;\mem_mode&#61;timing&#10;\mem_ranges&#61;0:2147483647&#10;\memories&#61;system.mem_ctrls0 system.mem_ctrls1&#10;\mmap_using_noreserve&#61;false&#10;\multi_thread&#61;false&#10;\num_work_ids&#61;16&#10;\readfile&#61;&#10;\redirect_paths&#61;&#10;\symbolfile&#61;&#10;\thermal_components&#61;&#10;\thermal_model&#61;Null&#10;\work_begin_ckpt_count&#61;0&#10;\work_begin_cpu_id_exit&#61;-1&#10;\work_begin_exit_count&#61;0&#10;\work_cpus_ckpt_count&#61;0&#10;\work_end_ckpt_count&#61;0&#10;\work_end_exit_count&#61;0&#10;\work_item_id&#61;-1";
+system_system_port [color="#000000", fillcolor="#b6b8bc", fontcolor="#000000", fontname=Arial, fontsize=14, label=system_port, shape=Mrecord, style="rounded, filled"];
+subgraph cluster_system_membus {
+color="#000000";
+fillcolor="#6f798c";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="membus \n: SystemXBar";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="clk_domain&#61;system.clk_domain&#10;\default_p_state&#61;UNDEFINED&#10;\eventq_index&#61;0&#10;\forward_latency&#61;4&#10;\frontend_latency&#61;3&#10;\max_outstanding_snoops&#61;512&#10;\max_routing_table_size&#61;512&#10;\p_state_clk_gate_bins&#61;20&#10;\p_state_clk_gate_max&#61;1000000000000&#10;\p_state_clk_gate_min&#61;1000&#10;\point_of_coherency&#61;true&#10;\point_of_unification&#61;true&#10;\power_model&#61;&#10;\response_latency&#61;2&#10;\snoop_filter&#61;system.membus.snoop_filter&#10;\snoop_response_latency&#61;4&#10;\system&#61;system&#10;\use_default_range&#61;false&#10;\width&#61;16";
+system_membus_master [color="#000000", fillcolor="#586070", fontcolor="#000000", fontname=Arial, fontsize=14, label=master, shape=Mrecord, style="rounded, filled"];
+system_membus_slave [color="#000000", fillcolor="#586070", fontcolor="#000000", fontname=Arial, fontsize=14, label=slave, shape=Mrecord, style="rounded, filled"];
+subgraph cluster_system_membus_snoop_filter {
+color="#000000";
+fillcolor="#bab6ae";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="snoop_filter \n: SnoopFilter";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\lookup_latency&#61;1&#10;\max_capacity&#61;8388608&#10;\system&#61;system";
+}
+
+}
+
+subgraph cluster_system_voltage_domain {
+color="#000000";
+fillcolor="#bab6ae";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="voltage_domain \n: VoltageDomain";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\voltage&#61;3.3";
+}
+
+subgraph cluster_system_clk_domain {
+color="#000000";
+fillcolor="#bab6ae";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="clk_domain \n: SrcClockDomain";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="clock&#61;1000&#10;\domain_id&#61;-1&#10;\eventq_index&#61;0&#10;\init_perf_level&#61;0&#10;\voltage_domain&#61;system.voltage_domain";
+}
+
+subgraph cluster_system_cpu_cluster {
+color="#000000";
+fillcolor="#bab6ae";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="cpu_cluster \n: CpuCluster";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\thermal_domain&#61;Null";
+subgraph cluster_system_cpu_cluster_toL2Bus {
+color="#000000";
+fillcolor="#6f798c";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="toL2Bus \n: L2XBar";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="clk_domain&#61;system.cpu_cluster.clk_domain&#10;\default_p_state&#61;UNDEFINED&#10;\eventq_index&#61;0&#10;\forward_latency&#61;0&#10;\frontend_latency&#61;1&#10;\max_outstanding_snoops&#61;512&#10;\max_routing_table_size&#61;512&#10;\p_state_clk_gate_bins&#61;20&#10;\p_state_clk_gate_max&#61;1000000000000&#10;\p_state_clk_gate_min&#61;1000&#10;\point_of_coherency&#61;false&#10;\point_of_unification&#61;true&#10;\power_model&#61;&#10;\response_latency&#61;1&#10;\snoop_filter&#61;system.cpu_cluster.toL2Bus.snoop_filter&#10;\snoop_response_latency&#61;1&#10;\system&#61;system&#10;\use_default_range&#61;false&#10;\width&#61;64";
+system_cpu_cluster_toL2Bus_master [color="#000000", fillcolor="#586070", fontcolor="#000000", fontname=Arial, fontsize=14, label=master, shape=Mrecord, style="rounded, filled"];
+system_cpu_cluster_toL2Bus_slave [color="#000000", fillcolor="#586070", fontcolor="#000000", fontname=Arial, fontsize=14, label=slave, shape=Mrecord, style="rounded, filled"];
+subgraph cluster_system_cpu_cluster_toL2Bus_snoop_filter {
+color="#000000";
+fillcolor="#bab6ae";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="snoop_filter \n: SnoopFilter";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\lookup_latency&#61;0&#10;\max_capacity&#61;8388608&#10;\system&#61;system";
+}
+
+}
+
+subgraph cluster_system_cpu_cluster_voltage_domain {
+color="#000000";
+fillcolor="#9f9c95";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="voltage_domain \n: VoltageDomain";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\voltage&#61;1.2";
+}
+
+subgraph cluster_system_cpu_cluster_l2 {
+color="#000000";
+fillcolor="#9f9c95";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="l2 \n: L2";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="addr_ranges&#61;0:18446744073709551615&#10;\assoc&#61;16&#10;\clk_domain&#61;system.cpu_cluster.clk_domain&#10;\clusivity&#61;mostly_excl&#10;\compressor&#61;Null&#10;\data_latency&#61;12&#10;\default_p_state&#61;UNDEFINED&#10;\demand_mshr_reserve&#61;1&#10;\eventq_index&#61;0&#10;\is_read_only&#61;false&#10;\max_miss_count&#61;0&#10;\mshrs&#61;32&#10;\p_state_clk_gate_bins&#61;20&#10;\p_state_clk_gate_max&#61;1000000000000&#10;\p_state_clk_gate_min&#61;1000&#10;\power_model&#61;&#10;\prefetch_on_access&#61;false&#10;\prefetcher&#61;Null&#10;\replacement_policy&#61;system.cpu_cluster.l2.replacement_policy&#10;\response_latency&#61;5&#10;\sequential_access&#61;false&#10;\size&#61;1048576&#10;\system&#61;system&#10;\tag_latency&#61;12&#10;\tags&#61;system.cpu_cluster.l2.tags&#10;\tgts_per_mshr&#61;8&#10;\warmup_percentage&#61;0&#10;\write_allocator&#61;Null&#10;\write_buffers&#61;8&#10;\writeback_clean&#61;false";
+system_cpu_cluster_l2_mem_side [color="#000000", fillcolor="#7f7c77", fontcolor="#000000", fontname=Arial, fontsize=14, label=mem_side, shape=Mrecord, style="rounded, filled"];
+system_cpu_cluster_l2_cpu_side [color="#000000", fillcolor="#7f7c77", fontcolor="#000000", fontname=Arial, fontsize=14, label=cpu_side, shape=Mrecord, style="rounded, filled"];
+subgraph cluster_system_cpu_cluster_l2_replacement_policy {
+color="#000000";
+fillcolor="#84827c";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="replacement_policy \n: LRURP";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0";
+}
+
+subgraph cluster_system_cpu_cluster_l2_tags {
+color="#000000";
+fillcolor="#84827c";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="tags \n: BaseSetAssoc";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="assoc&#61;16&#10;\block_size&#61;64&#10;\clk_domain&#61;system.cpu_cluster.clk_domain&#10;\default_p_state&#61;UNDEFINED&#10;\entry_size&#61;64&#10;\eventq_index&#61;0&#10;\indexing_policy&#61;system.cpu_cluster.l2.tags.indexing_policy&#10;\p_state_clk_gate_bins&#61;20&#10;\p_state_clk_gate_max&#61;1000000000000&#10;\p_state_clk_gate_min&#61;1000&#10;\power_model&#61;&#10;\replacement_policy&#61;system.cpu_cluster.l2.replacement_policy&#10;\sequential_access&#61;false&#10;\size&#61;1048576&#10;\system&#61;system&#10;\tag_latency&#61;12&#10;\warmup_percentage&#61;0";
+subgraph cluster_system_cpu_cluster_l2_tags_indexing_policy {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="indexing_policy \n: SetAssociative";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="assoc&#61;16&#10;\entry_size&#61;64&#10;\eventq_index&#61;0&#10;\size&#61;1048576";
+}
+
+}
+
+}
+
+subgraph cluster_system_cpu_cluster_clk_domain {
+color="#000000";
+fillcolor="#9f9c95";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="clk_domain \n: SrcClockDomain";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="clock&#61;1000&#10;\domain_id&#61;-1&#10;\eventq_index&#61;0&#10;\init_perf_level&#61;0&#10;\voltage_domain&#61;system.cpu_cluster.voltage_domain";
+}
+
+subgraph cluster_system_cpu_cluster_cpus {
+color="#000000";
+fillcolor="#bbc6d9";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="cpus \n: MinorCPU";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="branchPred&#61;system.cpu_cluster.cpus.branchPred&#10;\checker&#61;Null&#10;\clk_domain&#61;system.cpu_cluster.clk_domain&#10;\cpu_id&#61;0&#10;\decodeCycleInput&#61;true&#10;\decodeInputBufferSize&#61;3&#10;\decodeInputWidth&#61;2&#10;\decodeToExecuteForwardDelay&#61;1&#10;\default_p_state&#61;UNDEFINED&#10;\do_checkpoint_insts&#61;true&#10;\do_quiesce&#61;true&#10;\do_statistics_insts&#61;true&#10;\dtb&#61;system.cpu_cluster.cpus.dtb&#10;\enableIdling&#61;true&#10;\eventq_index&#61;0&#10;\executeAllowEarlyMemoryIssue&#61;true&#10;\executeBranchDelay&#61;1&#10;\executeCommitLimit&#61;2&#10;\executeCycleInput&#61;true&#10;\executeFuncUnits&#61;system.cpu_cluster.cpus.executeFuncUnits&#10;\executeInputBufferSize&#61;7&#10;\executeInputWidth&#61;2&#10;\executeIssueLimit&#61;2&#10;\executeLSQMaxStoreBufferStoresPerCycle&#61;2&#10;\executeLSQRequestsQueueSize&#61;1&#10;\executeLSQStoreBufferSize&#61;5&#10;\executeLSQTransfersQueueSize&#61;2&#10;\executeMaxAccessesInMemory&#61;2&#10;\executeMemoryCommitLimit&#61;1&#10;\executeMemoryIssueLimit&#61;1&#10;\executeMemoryWidth&#61;0&#10;\executeSetTraceTimeOnCommit&#61;true&#10;\executeSetTraceTimeOnIssue&#61;false&#10;\fetch1FetchLimit&#61;1&#10;\fetch1LineSnapWidth&#61;0&#10;\fetch1LineWidth&#61;0&#10;\fetch1ToFetch2BackwardDelay&#61;1&#10;\fetch1ToFetch2ForwardDelay&#61;1&#10;\fetch2CycleInput&#61;true&#10;\fetch2InputBufferSize&#61;2&#10;\fetch2ToDecodeForwardDelay&#61;1&#10;\function_trace&#61;false&#10;\function_trace_start&#61;0&#10;\interrupts&#61;system.cpu_cluster.cpus.interrupts&#10;\isa&#61;system.cpu_cluster.cpus.isa&#10;\itb&#61;system.cpu_cluster.cpus.itb&#10;\max_insts_all_threads&#61;0&#10;\max_insts_any_thread&#61;0&#10;\numThreads&#61;1&#10;\p_state_clk_gate_bins&#61;20&#10;\p_state_clk_gate_max&#61;1000000000000&#10;\p_state_clk_gate_min&#61;1000&#10;\power_gating_on_idle&#61;false&#10;\power_model&#61;&#10;\profile&#61;0&#10;\progress_interval&#61;0&#10;\pwr_gating_latency&#61;300&#10;\simpoint_start_insts&#61;&#10;\socket_id&#61;0&#10;\switched_out&#61;false&#10;\syscallRetryLatency&#61;10000&#10;\system&#61;system&#10;\threadPolicy&#61;RoundRobin&#10;\tracer&#61;system.cpu_cluster.cpus.tracer&#10;\wait_for_remote_gdb&#61;false&#10;\workload&#61;system.cpu_cluster.cpus.workload";
+system_cpu_cluster_cpus_icache_port [color="#000000", fillcolor="#959ead", fontcolor="#000000", fontname=Arial, fontsize=14, label=icache_port, shape=Mrecord, style="rounded, filled"];
+system_cpu_cluster_cpus_dcache_port [color="#000000", fillcolor="#959ead", fontcolor="#000000", fontname=Arial, fontsize=14, label=dcache_port, shape=Mrecord, style="rounded, filled"];
+subgraph cluster_system_cpu_cluster_cpus_icache {
+color="#000000";
+fillcolor="#bab6ae";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="icache \n: L1I";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="addr_ranges&#61;0:18446744073709551615&#10;\assoc&#61;3&#10;\clk_domain&#61;system.cpu_cluster.clk_domain&#10;\clusivity&#61;mostly_incl&#10;\compressor&#61;Null&#10;\data_latency&#61;1&#10;\default_p_state&#61;UNDEFINED&#10;\demand_mshr_reserve&#61;1&#10;\eventq_index&#61;0&#10;\is_read_only&#61;true&#10;\max_miss_count&#61;0&#10;\mshrs&#61;4&#10;\p_state_clk_gate_bins&#61;20&#10;\p_state_clk_gate_max&#61;1000000000000&#10;\p_state_clk_gate_min&#61;1000&#10;\power_model&#61;&#10;\prefetch_on_access&#61;false&#10;\prefetcher&#61;Null&#10;\replacement_policy&#61;system.cpu_cluster.cpus.icache.replacement_policy&#10;\response_latency&#61;1&#10;\sequential_access&#61;false&#10;\size&#61;49152&#10;\system&#61;system&#10;\tag_latency&#61;1&#10;\tags&#61;system.cpu_cluster.cpus.icache.tags&#10;\tgts_per_mshr&#61;8&#10;\warmup_percentage&#61;0&#10;\write_allocator&#61;Null&#10;\write_buffers&#61;8&#10;\writeback_clean&#61;true";
+system_cpu_cluster_cpus_icache_mem_side [color="#000000", fillcolor="#94918b", fontcolor="#000000", fontname=Arial, fontsize=14, label=mem_side, shape=Mrecord, style="rounded, filled"];
+system_cpu_cluster_cpus_icache_cpu_side [color="#000000", fillcolor="#94918b", fontcolor="#000000", fontname=Arial, fontsize=14, label=cpu_side, shape=Mrecord, style="rounded, filled"];
+subgraph cluster_system_cpu_cluster_cpus_icache_replacement_policy {
+color="#000000";
+fillcolor="#9f9c95";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="replacement_policy \n: LRURP";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_icache_tags {
+color="#000000";
+fillcolor="#9f9c95";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="tags \n: BaseSetAssoc";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="assoc&#61;3&#10;\block_size&#61;64&#10;\clk_domain&#61;system.cpu_cluster.clk_domain&#10;\default_p_state&#61;UNDEFINED&#10;\entry_size&#61;64&#10;\eventq_index&#61;0&#10;\indexing_policy&#61;system.cpu_cluster.cpus.icache.tags.indexing_policy&#10;\p_state_clk_gate_bins&#61;20&#10;\p_state_clk_gate_max&#61;1000000000000&#10;\p_state_clk_gate_min&#61;1000&#10;\power_model&#61;&#10;\replacement_policy&#61;system.cpu_cluster.cpus.icache.replacement_policy&#10;\sequential_access&#61;false&#10;\size&#61;49152&#10;\system&#61;system&#10;\tag_latency&#61;1&#10;\warmup_percentage&#61;0";
+subgraph cluster_system_cpu_cluster_cpus_icache_tags_indexing_policy {
+color="#000000";
+fillcolor="#84827c";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="indexing_policy \n: SetAssociative";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="assoc&#61;3&#10;\entry_size&#61;64&#10;\eventq_index&#61;0&#10;\size&#61;49152";
+}
+
+}
+
+}
+
+subgraph cluster_system_cpu_cluster_cpus_dtb {
+color="#000000";
+fillcolor="#bab6ae";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="dtb \n: ArmDTB";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\is_stage2&#61;false&#10;\size&#61;64&#10;\sys&#61;system&#10;\walker&#61;system.cpu_cluster.cpus.dtb.walker";
+subgraph cluster_system_cpu_cluster_cpus_dtb_walker {
+color="#000000";
+fillcolor="#9f9c95";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="walker \n: ArmTableWalker";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="clk_domain&#61;system.cpu_cluster.clk_domain&#10;\default_p_state&#61;UNDEFINED&#10;\eventq_index&#61;0&#10;\is_stage2&#61;false&#10;\num_squash_per_cycle&#61;2&#10;\p_state_clk_gate_bins&#61;20&#10;\p_state_clk_gate_max&#61;1000000000000&#10;\p_state_clk_gate_min&#61;1000&#10;\power_model&#61;&#10;\sys&#61;system";
+system_cpu_cluster_cpus_dtb_walker_port [color="#000000", fillcolor="#7f7c77", fontcolor="#000000", fontname=Arial, fontsize=14, label=port, shape=Mrecord, style="rounded, filled"];
+}
+
+subgraph cluster_system_cpu_cluster_cpus_dtb_stage2_mmu {
+color="#000000";
+fillcolor="#9f9c95";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="stage2_mmu \n: ArmStage2DMMU";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\stage2_tlb&#61;system.cpu_cluster.cpus.dtb.stage2_mmu.stage2_tlb&#10;\sys&#61;system&#10;\tlb&#61;system.cpu_cluster.cpus.dtb";
+subgraph cluster_system_cpu_cluster_cpus_dtb_stage2_mmu_stage2_tlb {
+color="#000000";
+fillcolor="#84827c";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="stage2_tlb \n: ArmStage2TLB";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\is_stage2&#61;true&#10;\size&#61;32&#10;\sys&#61;system&#10;\walker&#61;system.cpu_cluster.cpus.dtb.stage2_mmu.stage2_tlb.walker";
+subgraph cluster_system_cpu_cluster_cpus_dtb_stage2_mmu_stage2_tlb_walker {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="walker \n: ArmStage2TableWalker";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="clk_domain&#61;system.cpu_cluster.clk_domain&#10;\default_p_state&#61;UNDEFINED&#10;\eventq_index&#61;0&#10;\is_stage2&#61;true&#10;\num_squash_per_cycle&#61;2&#10;\p_state_clk_gate_bins&#61;20&#10;\p_state_clk_gate_max&#61;1000000000000&#10;\p_state_clk_gate_min&#61;1000&#10;\power_model&#61;&#10;\sys&#61;system";
+}
+
+}
+
+}
+
+}
+
+subgraph cluster_system_cpu_cluster_cpus_interrupts {
+color="#000000";
+fillcolor="#bab6ae";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="interrupts \n: ArmInterrupts";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_itb_walker_cache {
+color="#000000";
+fillcolor="#bab6ae";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="itb_walker_cache \n: WalkCache";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="addr_ranges&#61;0:18446744073709551615&#10;\assoc&#61;8&#10;\clk_domain&#61;system.cpu_cluster.clk_domain&#10;\clusivity&#61;mostly_incl&#10;\compressor&#61;Null&#10;\data_latency&#61;4&#10;\default_p_state&#61;UNDEFINED&#10;\demand_mshr_reserve&#61;1&#10;\eventq_index&#61;0&#10;\is_read_only&#61;true&#10;\max_miss_count&#61;0&#10;\mshrs&#61;6&#10;\p_state_clk_gate_bins&#61;20&#10;\p_state_clk_gate_max&#61;1000000000000&#10;\p_state_clk_gate_min&#61;1000&#10;\power_model&#61;&#10;\prefetch_on_access&#61;false&#10;\prefetcher&#61;Null&#10;\replacement_policy&#61;system.cpu_cluster.cpus.itb_walker_cache.replacement_policy&#10;\response_latency&#61;4&#10;\sequential_access&#61;false&#10;\size&#61;1024&#10;\system&#61;system&#10;\tag_latency&#61;4&#10;\tags&#61;system.cpu_cluster.cpus.itb_walker_cache.tags&#10;\tgts_per_mshr&#61;8&#10;\warmup_percentage&#61;0&#10;\write_allocator&#61;Null&#10;\write_buffers&#61;16&#10;\writeback_clean&#61;true";
+system_cpu_cluster_cpus_itb_walker_cache_mem_side [color="#000000", fillcolor="#94918b", fontcolor="#000000", fontname=Arial, fontsize=14, label=mem_side, shape=Mrecord, style="rounded, filled"];
+system_cpu_cluster_cpus_itb_walker_cache_cpu_side [color="#000000", fillcolor="#94918b", fontcolor="#000000", fontname=Arial, fontsize=14, label=cpu_side, shape=Mrecord, style="rounded, filled"];
+subgraph cluster_system_cpu_cluster_cpus_itb_walker_cache_replacement_policy {
+color="#000000";
+fillcolor="#9f9c95";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="replacement_policy \n: LRURP";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_itb_walker_cache_tags {
+color="#000000";
+fillcolor="#9f9c95";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="tags \n: BaseSetAssoc";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="assoc&#61;8&#10;\block_size&#61;64&#10;\clk_domain&#61;system.cpu_cluster.clk_domain&#10;\default_p_state&#61;UNDEFINED&#10;\entry_size&#61;64&#10;\eventq_index&#61;0&#10;\indexing_policy&#61;system.cpu_cluster.cpus.itb_walker_cache.tags.indexing_policy&#10;\p_state_clk_gate_bins&#61;20&#10;\p_state_clk_gate_max&#61;1000000000000&#10;\p_state_clk_gate_min&#61;1000&#10;\power_model&#61;&#10;\replacement_policy&#61;system.cpu_cluster.cpus.itb_walker_cache.replacement_policy&#10;\sequential_access&#61;false&#10;\size&#61;1024&#10;\system&#61;system&#10;\tag_latency&#61;4&#10;\warmup_percentage&#61;0";
+subgraph cluster_system_cpu_cluster_cpus_itb_walker_cache_tags_indexing_policy {
+color="#000000";
+fillcolor="#84827c";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="indexing_policy \n: SetAssociative";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="assoc&#61;8&#10;\entry_size&#61;64&#10;\eventq_index&#61;0&#10;\size&#61;1024";
+}
+
+}
+
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits {
+color="#000000";
+fillcolor="#bab6ae";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="executeFuncUnits \n: MinorDefaultFUPool";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\funcUnits&#61;system.cpu_cluster.cpus.executeFuncUnits.funcUnits0 system.cpu_cluster.cpus.executeFuncUnits.funcUnits1 system.cpu_cluster.cpus.executeFuncUnits.funcUnits2 system.cpu_cluster.cpus.executeFuncUnits.funcUnits3 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4 system.cpu_cluster.cpus.executeFuncUnits.funcUnits5 system.cpu_cluster.cpus.executeFuncUnits.funcUnits6 system.cpu_cluster.cpus.executeFuncUnits.funcUnits7";
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits0 {
+color="#000000";
+fillcolor="#9f9c95";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="funcUnits0 \n: MinorDefaultIntFU";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="cantForwardFromFUIndices&#61;&#10;\eventq_index&#61;0&#10;\issueLat&#61;1&#10;\opClasses&#61;system.cpu_cluster.cpus.executeFuncUnits.funcUnits0.opClasses&#10;\opLat&#61;3&#10;\timings&#61;system.cpu_cluster.cpus.executeFuncUnits.funcUnits0.timings";
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits0_opClasses {
+color="#000000";
+fillcolor="#84827c";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses \n: MinorOpClassSet";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClasses&#61;system.cpu_cluster.cpus.executeFuncUnits.funcUnits0.opClasses.opClasses";
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits0_opClasses_opClasses {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;IntAlu";
+}
+
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits0_timings {
+color="#000000";
+fillcolor="#84827c";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="timings \n: MinorFUTiming";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="description&#61;Int&#10;\eventq_index&#61;0&#10;\extraAssumedLat&#61;0&#10;\extraCommitLat&#61;0&#10;\extraCommitLatExpr&#61;Null&#10;\mask&#61;0&#10;\match&#61;0&#10;\opClasses&#61;system.cpu_cluster.cpus.executeFuncUnits.funcUnits0.timings.opClasses&#10;\srcRegsRelativeLats&#61;2&#10;\suppress&#61;false";
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits0_timings_opClasses {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses \n: MinorOpClassSet";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClasses&#61;";
+}
+
+}
+
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits1 {
+color="#000000";
+fillcolor="#9f9c95";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="funcUnits1 \n: MinorDefaultIntFU";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="cantForwardFromFUIndices&#61;&#10;\eventq_index&#61;0&#10;\issueLat&#61;1&#10;\opClasses&#61;system.cpu_cluster.cpus.executeFuncUnits.funcUnits1.opClasses&#10;\opLat&#61;3&#10;\timings&#61;system.cpu_cluster.cpus.executeFuncUnits.funcUnits1.timings";
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits1_opClasses {
+color="#000000";
+fillcolor="#84827c";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses \n: MinorOpClassSet";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClasses&#61;system.cpu_cluster.cpus.executeFuncUnits.funcUnits1.opClasses.opClasses";
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits1_opClasses_opClasses {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;IntAlu";
+}
+
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits1_timings {
+color="#000000";
+fillcolor="#84827c";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="timings \n: MinorFUTiming";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="description&#61;Int&#10;\eventq_index&#61;0&#10;\extraAssumedLat&#61;0&#10;\extraCommitLat&#61;0&#10;\extraCommitLatExpr&#61;Null&#10;\mask&#61;0&#10;\match&#61;0&#10;\opClasses&#61;system.cpu_cluster.cpus.executeFuncUnits.funcUnits1.timings.opClasses&#10;\srcRegsRelativeLats&#61;2&#10;\suppress&#61;false";
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits1_timings_opClasses {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses \n: MinorOpClassSet";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClasses&#61;";
+}
+
+}
+
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits2 {
+color="#000000";
+fillcolor="#9f9c95";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="funcUnits2 \n: MinorDefaultIntMulFU";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="cantForwardFromFUIndices&#61;&#10;\eventq_index&#61;0&#10;\issueLat&#61;1&#10;\opClasses&#61;system.cpu_cluster.cpus.executeFuncUnits.funcUnits2.opClasses&#10;\opLat&#61;3&#10;\timings&#61;system.cpu_cluster.cpus.executeFuncUnits.funcUnits2.timings";
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits2_opClasses {
+color="#000000";
+fillcolor="#84827c";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses \n: MinorOpClassSet";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClasses&#61;system.cpu_cluster.cpus.executeFuncUnits.funcUnits2.opClasses.opClasses";
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits2_opClasses_opClasses {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;IntMult";
+}
+
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits2_timings {
+color="#000000";
+fillcolor="#84827c";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="timings \n: MinorFUTiming";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="description&#61;Mul&#10;\eventq_index&#61;0&#10;\extraAssumedLat&#61;0&#10;\extraCommitLat&#61;0&#10;\extraCommitLatExpr&#61;Null&#10;\mask&#61;0&#10;\match&#61;0&#10;\opClasses&#61;system.cpu_cluster.cpus.executeFuncUnits.funcUnits2.timings.opClasses&#10;\srcRegsRelativeLats&#61;0&#10;\suppress&#61;false";
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits2_timings_opClasses {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses \n: MinorOpClassSet";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClasses&#61;";
+}
+
+}
+
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits3 {
+color="#000000";
+fillcolor="#9f9c95";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="funcUnits3 \n: MinorDefaultIntDivFU";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="cantForwardFromFUIndices&#61;&#10;\eventq_index&#61;0&#10;\issueLat&#61;9&#10;\opClasses&#61;system.cpu_cluster.cpus.executeFuncUnits.funcUnits3.opClasses&#10;\opLat&#61;9&#10;\timings&#61;";
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits3_opClasses {
+color="#000000";
+fillcolor="#84827c";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses \n: MinorOpClassSet";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClasses&#61;system.cpu_cluster.cpus.executeFuncUnits.funcUnits3.opClasses.opClasses";
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits3_opClasses_opClasses {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;IntDiv";
+}
+
+}
+
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4 {
+color="#000000";
+fillcolor="#9f9c95";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="funcUnits4 \n: MinorDefaultFloatSimdFU";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="cantForwardFromFUIndices&#61;&#10;\eventq_index&#61;0&#10;\issueLat&#61;1&#10;\opClasses&#61;system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses&#10;\opLat&#61;6&#10;\timings&#61;system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.timings";
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses {
+color="#000000";
+fillcolor="#84827c";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses \n: MinorOpClassSet";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClasses&#61;system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses00 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses01 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses02 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses03 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses04 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses05 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses06 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses07 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses08 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses09 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses10 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses11 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses12 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses13 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses14 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses15 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses16 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses17 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses18 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses19 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses20 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses21 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses22 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses23 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses24 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses25 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses26 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses27 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses28 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses29 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses30 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses31 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses32 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses33 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses34 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses35 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses36 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses37 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses38 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses39 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses40 system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.opClasses.opClasses41";
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses00 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses00 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;FloatAdd";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses01 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses01 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;FloatCmp";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses02 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses02 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;FloatCvt";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses03 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses03 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;FloatMisc";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses04 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses04 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;FloatMult";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses05 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses05 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;FloatMultAcc";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses06 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses06 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;FloatDiv";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses07 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses07 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;FloatSqrt";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses08 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses08 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;SimdAdd";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses09 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses09 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;SimdAddAcc";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses10 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses10 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;SimdAlu";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses11 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses11 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;SimdCmp";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses12 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses12 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;SimdCvt";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses13 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses13 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;SimdMisc";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses14 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses14 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;SimdMult";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses15 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses15 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;SimdMultAcc";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses16 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses16 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;SimdShift";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses17 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses17 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;SimdShiftAcc";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses18 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses18 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;SimdDiv";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses19 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses19 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;SimdSqrt";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses20 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses20 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;SimdFloatAdd";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses21 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses21 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;SimdFloatAlu";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses22 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses22 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;SimdFloatCmp";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses23 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses23 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;SimdFloatCvt";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses24 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses24 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;SimdFloatDiv";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses25 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses25 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;SimdFloatMisc";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses26 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses26 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;SimdFloatMult";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses27 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses27 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;SimdFloatMultAcc";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses28 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses28 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;SimdFloatSqrt";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses29 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses29 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;SimdReduceAdd";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses30 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses30 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;SimdReduceAlu";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses31 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses31 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;SimdReduceCmp";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses32 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses32 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;SimdFloatReduceAdd";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses33 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses33 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;SimdFloatReduceCmp";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses34 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses34 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;SimdAes";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses35 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses35 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;SimdAesMix";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses36 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses36 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;SimdSha1Hash";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses37 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses37 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;SimdSha1Hash2";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses38 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses38 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;SimdSha256Hash";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses39 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses39 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;SimdSha256Hash2";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses40 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses40 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;SimdShaSigma2";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_opClasses_opClasses41 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses41 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;SimdShaSigma3";
+}
+
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_timings {
+color="#000000";
+fillcolor="#84827c";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="timings \n: MinorFUTiming";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="description&#61;FloatSimd&#10;\eventq_index&#61;0&#10;\extraAssumedLat&#61;0&#10;\extraCommitLat&#61;0&#10;\extraCommitLatExpr&#61;Null&#10;\mask&#61;0&#10;\match&#61;0&#10;\opClasses&#61;system.cpu_cluster.cpus.executeFuncUnits.funcUnits4.timings.opClasses&#10;\srcRegsRelativeLats&#61;2&#10;\suppress&#61;false";
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits4_timings_opClasses {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses \n: MinorOpClassSet";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClasses&#61;";
+}
+
+}
+
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits5 {
+color="#000000";
+fillcolor="#9f9c95";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="funcUnits5 \n: MinorDefaultPredFU";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="cantForwardFromFUIndices&#61;&#10;\eventq_index&#61;0&#10;\issueLat&#61;1&#10;\opClasses&#61;system.cpu_cluster.cpus.executeFuncUnits.funcUnits5.opClasses&#10;\opLat&#61;3&#10;\timings&#61;system.cpu_cluster.cpus.executeFuncUnits.funcUnits5.timings";
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits5_opClasses {
+color="#000000";
+fillcolor="#84827c";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses \n: MinorOpClassSet";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClasses&#61;system.cpu_cluster.cpus.executeFuncUnits.funcUnits5.opClasses.opClasses";
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits5_opClasses_opClasses {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;SimdPredAlu";
+}
+
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits5_timings {
+color="#000000";
+fillcolor="#84827c";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="timings \n: MinorFUTiming";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="description&#61;Pred&#10;\eventq_index&#61;0&#10;\extraAssumedLat&#61;0&#10;\extraCommitLat&#61;0&#10;\extraCommitLatExpr&#61;Null&#10;\mask&#61;0&#10;\match&#61;0&#10;\opClasses&#61;system.cpu_cluster.cpus.executeFuncUnits.funcUnits5.timings.opClasses&#10;\srcRegsRelativeLats&#61;2&#10;\suppress&#61;false";
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits5_timings_opClasses {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses \n: MinorOpClassSet";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClasses&#61;";
+}
+
+}
+
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits6 {
+color="#000000";
+fillcolor="#9f9c95";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="funcUnits6 \n: MinorDefaultMemFU";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="cantForwardFromFUIndices&#61;&#10;\eventq_index&#61;0&#10;\issueLat&#61;1&#10;\opClasses&#61;system.cpu_cluster.cpus.executeFuncUnits.funcUnits6.opClasses&#10;\opLat&#61;1&#10;\timings&#61;system.cpu_cluster.cpus.executeFuncUnits.funcUnits6.timings";
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits6_opClasses {
+color="#000000";
+fillcolor="#84827c";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses \n: MinorOpClassSet";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClasses&#61;system.cpu_cluster.cpus.executeFuncUnits.funcUnits6.opClasses.opClasses0 system.cpu_cluster.cpus.executeFuncUnits.funcUnits6.opClasses.opClasses1 system.cpu_cluster.cpus.executeFuncUnits.funcUnits6.opClasses.opClasses2 system.cpu_cluster.cpus.executeFuncUnits.funcUnits6.opClasses.opClasses3";
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits6_opClasses_opClasses0 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses0 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;MemRead";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits6_opClasses_opClasses1 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses1 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;MemWrite";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits6_opClasses_opClasses2 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses2 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;FloatMemRead";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits6_opClasses_opClasses3 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses3 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;FloatMemWrite";
+}
+
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits6_timings {
+color="#000000";
+fillcolor="#84827c";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="timings \n: MinorFUTiming";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="description&#61;Mem&#10;\eventq_index&#61;0&#10;\extraAssumedLat&#61;2&#10;\extraCommitLat&#61;0&#10;\extraCommitLatExpr&#61;Null&#10;\mask&#61;0&#10;\match&#61;0&#10;\opClasses&#61;system.cpu_cluster.cpus.executeFuncUnits.funcUnits6.timings.opClasses&#10;\srcRegsRelativeLats&#61;1&#10;\suppress&#61;false";
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits6_timings_opClasses {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses \n: MinorOpClassSet";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClasses&#61;";
+}
+
+}
+
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits7 {
+color="#000000";
+fillcolor="#9f9c95";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="funcUnits7 \n: MinorDefaultMiscFU";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="cantForwardFromFUIndices&#61;&#10;\eventq_index&#61;0&#10;\issueLat&#61;1&#10;\opClasses&#61;system.cpu_cluster.cpus.executeFuncUnits.funcUnits7.opClasses&#10;\opLat&#61;1&#10;\timings&#61;";
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits7_opClasses {
+color="#000000";
+fillcolor="#84827c";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses \n: MinorOpClassSet";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClasses&#61;system.cpu_cluster.cpus.executeFuncUnits.funcUnits7.opClasses.opClasses0 system.cpu_cluster.cpus.executeFuncUnits.funcUnits7.opClasses.opClasses1";
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits7_opClasses_opClasses0 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses0 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;IprAccess";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_executeFuncUnits_funcUnits7_opClasses_opClasses1 {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="opClasses1 \n: MinorOpClass";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\opClass&#61;InstPrefetch";
+}
+
+}
+
+}
+
+}
+
+subgraph cluster_system_cpu_cluster_cpus_dtb_walker_cache {
+color="#000000";
+fillcolor="#bab6ae";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="dtb_walker_cache \n: WalkCache";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="addr_ranges&#61;0:18446744073709551615&#10;\assoc&#61;8&#10;\clk_domain&#61;system.cpu_cluster.clk_domain&#10;\clusivity&#61;mostly_incl&#10;\compressor&#61;Null&#10;\data_latency&#61;4&#10;\default_p_state&#61;UNDEFINED&#10;\demand_mshr_reserve&#61;1&#10;\eventq_index&#61;0&#10;\is_read_only&#61;true&#10;\max_miss_count&#61;0&#10;\mshrs&#61;6&#10;\p_state_clk_gate_bins&#61;20&#10;\p_state_clk_gate_max&#61;1000000000000&#10;\p_state_clk_gate_min&#61;1000&#10;\power_model&#61;&#10;\prefetch_on_access&#61;false&#10;\prefetcher&#61;Null&#10;\replacement_policy&#61;system.cpu_cluster.cpus.dtb_walker_cache.replacement_policy&#10;\response_latency&#61;4&#10;\sequential_access&#61;false&#10;\size&#61;1024&#10;\system&#61;system&#10;\tag_latency&#61;4&#10;\tags&#61;system.cpu_cluster.cpus.dtb_walker_cache.tags&#10;\tgts_per_mshr&#61;8&#10;\warmup_percentage&#61;0&#10;\write_allocator&#61;Null&#10;\write_buffers&#61;16&#10;\writeback_clean&#61;true";
+system_cpu_cluster_cpus_dtb_walker_cache_mem_side [color="#000000", fillcolor="#94918b", fontcolor="#000000", fontname=Arial, fontsize=14, label=mem_side, shape=Mrecord, style="rounded, filled"];
+system_cpu_cluster_cpus_dtb_walker_cache_cpu_side [color="#000000", fillcolor="#94918b", fontcolor="#000000", fontname=Arial, fontsize=14, label=cpu_side, shape=Mrecord, style="rounded, filled"];
+subgraph cluster_system_cpu_cluster_cpus_dtb_walker_cache_replacement_policy {
+color="#000000";
+fillcolor="#9f9c95";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="replacement_policy \n: LRURP";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_dtb_walker_cache_tags {
+color="#000000";
+fillcolor="#9f9c95";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="tags \n: BaseSetAssoc";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="assoc&#61;8&#10;\block_size&#61;64&#10;\clk_domain&#61;system.cpu_cluster.clk_domain&#10;\default_p_state&#61;UNDEFINED&#10;\entry_size&#61;64&#10;\eventq_index&#61;0&#10;\indexing_policy&#61;system.cpu_cluster.cpus.dtb_walker_cache.tags.indexing_policy&#10;\p_state_clk_gate_bins&#61;20&#10;\p_state_clk_gate_max&#61;1000000000000&#10;\p_state_clk_gate_min&#61;1000&#10;\power_model&#61;&#10;\replacement_policy&#61;system.cpu_cluster.cpus.dtb_walker_cache.replacement_policy&#10;\sequential_access&#61;false&#10;\size&#61;1024&#10;\system&#61;system&#10;\tag_latency&#61;4&#10;\warmup_percentage&#61;0";
+subgraph cluster_system_cpu_cluster_cpus_dtb_walker_cache_tags_indexing_policy {
+color="#000000";
+fillcolor="#84827c";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="indexing_policy \n: SetAssociative";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="assoc&#61;8&#10;\entry_size&#61;64&#10;\eventq_index&#61;0&#10;\size&#61;1024";
+}
+
+}
+
+}
+
+subgraph cluster_system_cpu_cluster_cpus_workload {
+color="#000000";
+fillcolor="#bab6ae";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="workload \n: Process";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="cmd&#61;tests/test-progs/hello/bin/arm/linux/hello&#10;\cwd&#61;/home/arch/Desktop/gem5&#10;\drivers&#61;&#10;\egid&#61;100&#10;\env&#61;&#10;\errout&#61;cerr&#10;\euid&#61;100&#10;\eventq_index&#61;0&#10;\executable&#61;tests/test-progs/hello/bin/arm/linux/hello&#10;\gid&#61;100&#10;\input&#61;cin&#10;\kvmInSE&#61;false&#10;\maxStackSize&#61;67108864&#10;\output&#61;cout&#10;\pgid&#61;100&#10;\pid&#61;100&#10;\ppid&#61;0&#10;\release&#61;5.1.0&#10;\simpoint&#61;0&#10;\system&#61;system&#10;\uid&#61;100&#10;\useArchPT&#61;false";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_dcache {
+color="#000000";
+fillcolor="#bab6ae";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="dcache \n: L1D";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="addr_ranges&#61;0:18446744073709551615&#10;\assoc&#61;2&#10;\clk_domain&#61;system.cpu_cluster.clk_domain&#10;\clusivity&#61;mostly_incl&#10;\compressor&#61;Null&#10;\data_latency&#61;2&#10;\default_p_state&#61;UNDEFINED&#10;\demand_mshr_reserve&#61;1&#10;\eventq_index&#61;0&#10;\is_read_only&#61;false&#10;\max_miss_count&#61;0&#10;\mshrs&#61;16&#10;\p_state_clk_gate_bins&#61;20&#10;\p_state_clk_gate_max&#61;1000000000000&#10;\p_state_clk_gate_min&#61;1000&#10;\power_model&#61;&#10;\prefetch_on_access&#61;false&#10;\prefetcher&#61;Null&#10;\replacement_policy&#61;system.cpu_cluster.cpus.dcache.replacement_policy&#10;\response_latency&#61;1&#10;\sequential_access&#61;false&#10;\size&#61;32768&#10;\system&#61;system&#10;\tag_latency&#61;2&#10;\tags&#61;system.cpu_cluster.cpus.dcache.tags&#10;\tgts_per_mshr&#61;16&#10;\warmup_percentage&#61;0&#10;\write_allocator&#61;Null&#10;\write_buffers&#61;16&#10;\writeback_clean&#61;false";
+system_cpu_cluster_cpus_dcache_mem_side [color="#000000", fillcolor="#94918b", fontcolor="#000000", fontname=Arial, fontsize=14, label=mem_side, shape=Mrecord, style="rounded, filled"];
+system_cpu_cluster_cpus_dcache_cpu_side [color="#000000", fillcolor="#94918b", fontcolor="#000000", fontname=Arial, fontsize=14, label=cpu_side, shape=Mrecord, style="rounded, filled"];
+subgraph cluster_system_cpu_cluster_cpus_dcache_replacement_policy {
+color="#000000";
+fillcolor="#9f9c95";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="replacement_policy \n: LRURP";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_dcache_tags {
+color="#000000";
+fillcolor="#9f9c95";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="tags \n: BaseSetAssoc";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="assoc&#61;2&#10;\block_size&#61;64&#10;\clk_domain&#61;system.cpu_cluster.clk_domain&#10;\default_p_state&#61;UNDEFINED&#10;\entry_size&#61;64&#10;\eventq_index&#61;0&#10;\indexing_policy&#61;system.cpu_cluster.cpus.dcache.tags.indexing_policy&#10;\p_state_clk_gate_bins&#61;20&#10;\p_state_clk_gate_max&#61;1000000000000&#10;\p_state_clk_gate_min&#61;1000&#10;\power_model&#61;&#10;\replacement_policy&#61;system.cpu_cluster.cpus.dcache.replacement_policy&#10;\sequential_access&#61;false&#10;\size&#61;32768&#10;\system&#61;system&#10;\tag_latency&#61;2&#10;\warmup_percentage&#61;0";
+subgraph cluster_system_cpu_cluster_cpus_dcache_tags_indexing_policy {
+color="#000000";
+fillcolor="#84827c";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="indexing_policy \n: SetAssociative";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="assoc&#61;2&#10;\entry_size&#61;64&#10;\eventq_index&#61;0&#10;\size&#61;32768";
+}
+
+}
+
+}
+
+subgraph cluster_system_cpu_cluster_cpus_branchPred {
+color="#000000";
+fillcolor="#bab6ae";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="branchPred \n: TournamentBP";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="BTBEntries&#61;4096&#10;\BTBTagSize&#61;16&#10;\RASSize&#61;16&#10;\choiceCtrBits&#61;2&#10;\choicePredictorSize&#61;8192&#10;\eventq_index&#61;0&#10;\globalCtrBits&#61;2&#10;\globalPredictorSize&#61;8192&#10;\indirectBranchPred&#61;system.cpu_cluster.cpus.branchPred.indirectBranchPred&#10;\instShiftAmt&#61;2&#10;\localCtrBits&#61;2&#10;\localHistoryTableSize&#61;2048&#10;\localPredictorSize&#61;2048&#10;\numThreads&#61;1";
+subgraph cluster_system_cpu_cluster_cpus_branchPred_indirectBranchPred {
+color="#000000";
+fillcolor="#9f9c95";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="indirectBranchPred \n: SimpleIndirectPredictor";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\indirectGHRBits&#61;13&#10;\indirectHashGHR&#61;true&#10;\indirectHashTargets&#61;true&#10;\indirectPathLength&#61;3&#10;\indirectSets&#61;256&#10;\indirectTagSize&#61;16&#10;\indirectWays&#61;2&#10;\instShiftAmt&#61;2&#10;\numThreads&#61;1";
+}
+
+}
+
+subgraph cluster_system_cpu_cluster_cpus_isa {
+color="#000000";
+fillcolor="#bab6ae";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="isa \n: ArmISA";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="decoderFlavour&#61;Generic&#10;\eventq_index&#61;0&#10;\fpsid&#61;1090793632&#10;\id_aa64afr0_el1&#61;0&#10;\id_aa64afr1_el1&#61;0&#10;\id_aa64dfr0_el1&#61;1052678&#10;\id_aa64dfr1_el1&#61;0&#10;\id_aa64isar0_el1&#61;0&#10;\id_aa64isar1_el1&#61;0&#10;\id_aa64mmfr0_el1&#61;15728642&#10;\id_aa64mmfr1_el1&#61;1052672&#10;\id_aa64mmfr2_el1&#61;0&#10;\id_isar0&#61;34607377&#10;\id_isar1&#61;34677009&#10;\id_isar2&#61;555950401&#10;\id_isar3&#61;17899825&#10;\id_isar4&#61;268501314&#10;\id_isar5&#61;0&#10;\id_mmfr0&#61;270536963&#10;\id_mmfr1&#61;0&#10;\id_mmfr2&#61;19070976&#10;\id_mmfr3&#61;34611729&#10;\impdef_nop&#61;false&#10;\midr&#61;1091551472&#10;\pmu&#61;Null&#10;\sve_vl_se&#61;1&#10;\system&#61;system";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_tracer {
+color="#000000";
+fillcolor="#bab6ae";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="tracer \n: ExeTracer";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0";
+}
+
+subgraph cluster_system_cpu_cluster_cpus_itb {
+color="#000000";
+fillcolor="#bab6ae";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="itb \n: ArmITB";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\is_stage2&#61;false&#10;\size&#61;64&#10;\sys&#61;system&#10;\walker&#61;system.cpu_cluster.cpus.itb.walker";
+subgraph cluster_system_cpu_cluster_cpus_itb_walker {
+color="#000000";
+fillcolor="#9f9c95";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="walker \n: ArmTableWalker";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="clk_domain&#61;system.cpu_cluster.clk_domain&#10;\default_p_state&#61;UNDEFINED&#10;\eventq_index&#61;0&#10;\is_stage2&#61;false&#10;\num_squash_per_cycle&#61;2&#10;\p_state_clk_gate_bins&#61;20&#10;\p_state_clk_gate_max&#61;1000000000000&#10;\p_state_clk_gate_min&#61;1000&#10;\power_model&#61;&#10;\sys&#61;system";
+system_cpu_cluster_cpus_itb_walker_port [color="#000000", fillcolor="#7f7c77", fontcolor="#000000", fontname=Arial, fontsize=14, label=port, shape=Mrecord, style="rounded, filled"];
+}
+
+subgraph cluster_system_cpu_cluster_cpus_itb_stage2_mmu {
+color="#000000";
+fillcolor="#9f9c95";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="stage2_mmu \n: ArmStage2IMMU";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\stage2_tlb&#61;system.cpu_cluster.cpus.itb.stage2_mmu.stage2_tlb&#10;\sys&#61;system&#10;\tlb&#61;system.cpu_cluster.cpus.itb";
+subgraph cluster_system_cpu_cluster_cpus_itb_stage2_mmu_stage2_tlb {
+color="#000000";
+fillcolor="#84827c";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="stage2_tlb \n: ArmStage2TLB";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\is_stage2&#61;true&#10;\size&#61;32&#10;\sys&#61;system&#10;\walker&#61;system.cpu_cluster.cpus.itb.stage2_mmu.stage2_tlb.walker";
+subgraph cluster_system_cpu_cluster_cpus_itb_stage2_mmu_stage2_tlb_walker {
+color="#000000";
+fillcolor="#6a6863";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="walker \n: ArmStage2TableWalker";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="clk_domain&#61;system.cpu_cluster.clk_domain&#10;\default_p_state&#61;UNDEFINED&#10;\eventq_index&#61;0&#10;\is_stage2&#61;true&#10;\num_squash_per_cycle&#61;2&#10;\p_state_clk_gate_bins&#61;20&#10;\p_state_clk_gate_max&#61;1000000000000&#10;\p_state_clk_gate_min&#61;1000&#10;\power_model&#61;&#10;\sys&#61;system";
+}
+
+}
+
+}
+
+}
+
+}
+
+}
+
+subgraph cluster_system_mem_ctrls0 {
+color="#000000";
+fillcolor="#5e5958";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="mem_ctrls0 \n: DDR3_1600_8x8";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="IDD0&#61;0.055&#10;\IDD02&#61;0.0&#10;\IDD2N&#61;0.032&#10;\IDD2N2&#61;0.0&#10;\IDD2P0&#61;0.0&#10;\IDD2P02&#61;0.0&#10;\IDD2P1&#61;0.032&#10;\IDD2P12&#61;0.0&#10;\IDD3N&#61;0.038&#10;\IDD3N2&#61;0.0&#10;\IDD3P0&#61;0.0&#10;\IDD3P02&#61;0.0&#10;\IDD3P1&#61;0.038&#10;\IDD3P12&#61;0.0&#10;\IDD4R&#61;0.157&#10;\IDD4R2&#61;0.0&#10;\IDD4W&#61;0.125&#10;\IDD4W2&#61;0.0&#10;\IDD5&#61;0.235&#10;\IDD52&#61;0.0&#10;\IDD6&#61;0.02&#10;\IDD62&#61;0.0&#10;\VDD&#61;1.5&#10;\VDD2&#61;0.0&#10;\activation_limit&#61;4&#10;\addr_mapping&#61;RoRaBaCoCh&#10;\bank_groups_per_rank&#61;0&#10;\banks_per_rank&#61;8&#10;\burst_length&#61;8&#10;\clk_domain&#61;system.clk_domain&#10;\conf_table_reported&#61;true&#10;\default_p_state&#61;UNDEFINED&#10;\device_bus_width&#61;8&#10;\device_rowbuffer_size&#61;1024&#10;\device_size&#61;536870912&#10;\devices_per_rank&#61;8&#10;\dll&#61;true&#10;\enable_dram_powerdown&#61;false&#10;\eventq_index&#61;0&#10;\in_addr_map&#61;true&#10;\kvm_map&#61;true&#10;\max_accesses_per_row&#61;16&#10;\mem_sched_policy&#61;frfcfs&#10;\min_writes_per_switch&#61;16&#10;\null&#61;false&#10;\p_state_clk_gate_bins&#61;20&#10;\p_state_clk_gate_max&#61;1000000000000&#10;\p_state_clk_gate_min&#61;1000&#10;\page_policy&#61;open_adaptive&#10;\power_model&#61;&#10;\qos_masters&#61;               &#10;\qos_policy&#61;Null&#10;\qos_priorities&#61;1&#10;\qos_priority_escalation&#61;false&#10;\qos_q_policy&#61;fifo&#10;\qos_syncro_scheduler&#61;false&#10;\qos_turnaround_policy&#61;Null&#10;\range&#61;0:2147483647:0:1048704&#10;\ranks_per_channel&#61;2&#10;\read_buffer_size&#61;32&#10;\static_backend_latency&#61;10000&#10;\static_frontend_latency&#61;10000&#10;\tBURST&#61;5000&#10;\tCCD_L&#61;0&#10;\tCCD_L_WR&#61;0&#10;\tCK&#61;1250&#10;\tCL&#61;13750&#10;\tCS&#61;2500&#10;\tRAS&#61;35000&#10;\tRCD&#61;13750&#10;\tREFI&#61;7800000&#10;\tRFC&#61;260000&#10;\tRP&#61;13750&#10;\tRRD&#61;6000&#10;\tRRD_L&#61;0&#10;\tRTP&#61;7500&#10;\tRTW&#61;2500&#10;\tWR&#61;15000&#10;\tWTR&#61;7500&#10;\tXAW&#61;30000&#10;\tXP&#61;6000&#10;\tXPDLL&#61;0&#10;\tXS&#61;270000&#10;\tXSDLL&#61;0&#10;\write_buffer_size&#61;64&#10;\write_high_thresh_perc&#61;85&#10;\write_low_thresh_perc&#61;50";
+system_mem_ctrls0_port [color="#000000", fillcolor="#4b4746", fontcolor="#000000", fontname=Arial, fontsize=14, label=port, shape=Mrecord, style="rounded, filled"];
+}
+
+subgraph cluster_system_mem_ctrls1 {
+color="#000000";
+fillcolor="#5e5958";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="mem_ctrls1 \n: DDR3_1600_8x8";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="IDD0&#61;0.055&#10;\IDD02&#61;0.0&#10;\IDD2N&#61;0.032&#10;\IDD2N2&#61;0.0&#10;\IDD2P0&#61;0.0&#10;\IDD2P02&#61;0.0&#10;\IDD2P1&#61;0.032&#10;\IDD2P12&#61;0.0&#10;\IDD3N&#61;0.038&#10;\IDD3N2&#61;0.0&#10;\IDD3P0&#61;0.0&#10;\IDD3P02&#61;0.0&#10;\IDD3P1&#61;0.038&#10;\IDD3P12&#61;0.0&#10;\IDD4R&#61;0.157&#10;\IDD4R2&#61;0.0&#10;\IDD4W&#61;0.125&#10;\IDD4W2&#61;0.0&#10;\IDD5&#61;0.235&#10;\IDD52&#61;0.0&#10;\IDD6&#61;0.02&#10;\IDD62&#61;0.0&#10;\VDD&#61;1.5&#10;\VDD2&#61;0.0&#10;\activation_limit&#61;4&#10;\addr_mapping&#61;RoRaBaCoCh&#10;\bank_groups_per_rank&#61;0&#10;\banks_per_rank&#61;8&#10;\burst_length&#61;8&#10;\clk_domain&#61;system.clk_domain&#10;\conf_table_reported&#61;true&#10;\default_p_state&#61;UNDEFINED&#10;\device_bus_width&#61;8&#10;\device_rowbuffer_size&#61;1024&#10;\device_size&#61;536870912&#10;\devices_per_rank&#61;8&#10;\dll&#61;true&#10;\enable_dram_powerdown&#61;false&#10;\eventq_index&#61;0&#10;\in_addr_map&#61;true&#10;\kvm_map&#61;true&#10;\max_accesses_per_row&#61;16&#10;\mem_sched_policy&#61;frfcfs&#10;\min_writes_per_switch&#61;16&#10;\null&#61;false&#10;\p_state_clk_gate_bins&#61;20&#10;\p_state_clk_gate_max&#61;1000000000000&#10;\p_state_clk_gate_min&#61;1000&#10;\page_policy&#61;open_adaptive&#10;\power_model&#61;&#10;\qos_masters&#61;               &#10;\qos_policy&#61;Null&#10;\qos_priorities&#61;1&#10;\qos_priority_escalation&#61;false&#10;\qos_q_policy&#61;fifo&#10;\qos_syncro_scheduler&#61;false&#10;\qos_turnaround_policy&#61;Null&#10;\range&#61;0:2147483647:1:1048704&#10;\ranks_per_channel&#61;2&#10;\read_buffer_size&#61;32&#10;\static_backend_latency&#61;10000&#10;\static_frontend_latency&#61;10000&#10;\tBURST&#61;5000&#10;\tCCD_L&#61;0&#10;\tCCD_L_WR&#61;0&#10;\tCK&#61;1250&#10;\tCL&#61;13750&#10;\tCS&#61;2500&#10;\tRAS&#61;35000&#10;\tRCD&#61;13750&#10;\tREFI&#61;7800000&#10;\tRFC&#61;260000&#10;\tRP&#61;13750&#10;\tRRD&#61;6000&#10;\tRRD_L&#61;0&#10;\tRTP&#61;7500&#10;\tRTW&#61;2500&#10;\tWR&#61;15000&#10;\tWTR&#61;7500&#10;\tXAW&#61;30000&#10;\tXP&#61;6000&#10;\tXPDLL&#61;0&#10;\tXS&#61;270000&#10;\tXSDLL&#61;0&#10;\write_buffer_size&#61;64&#10;\write_high_thresh_perc&#61;85&#10;\write_low_thresh_perc&#61;50";
+system_mem_ctrls1_port [color="#000000", fillcolor="#4b4746", fontcolor="#000000", fontname=Arial, fontsize=14, label=port, shape=Mrecord, style="rounded, filled"];
+}
+
+subgraph cluster_system_dvfs_handler {
+color="#000000";
+fillcolor="#bab6ae";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="dvfs_handler \n: DVFSHandler";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="domains&#61;&#10;\enable&#61;false&#10;\eventq_index&#61;0&#10;\sys_clk_domain&#61;system.clk_domain&#10;\transition_latency&#61;100000000";
+}
+
+}
+
+}
+
+system_system_port -> system_membus_slave  [dir=forward];
+system_membus_master -> system_mem_ctrls0_port  [dir=forward];
+system_membus_master -> system_mem_ctrls1_port  [dir=forward];
+system_membus_slave -> system_cpu_cluster_l2_mem_side  [dir=back];
+system_cpu_cluster_toL2Bus_master -> system_cpu_cluster_l2_cpu_side  [dir=forward];
+system_cpu_cluster_toL2Bus_slave -> system_cpu_cluster_cpus_icache_mem_side  [dir=back];
+system_cpu_cluster_toL2Bus_slave -> system_cpu_cluster_cpus_dcache_mem_side  [dir=back];
+system_cpu_cluster_toL2Bus_slave -> system_cpu_cluster_cpus_itb_walker_cache_mem_side  [dir=back];
+system_cpu_cluster_toL2Bus_slave -> system_cpu_cluster_cpus_dtb_walker_cache_mem_side  [dir=back];
+system_cpu_cluster_cpus_icache_port -> system_cpu_cluster_cpus_icache_cpu_side  [dir=forward];
+system_cpu_cluster_cpus_dcache_port -> system_cpu_cluster_cpus_dcache_cpu_side  [dir=forward];
+system_cpu_cluster_cpus_dtb_walker_port -> system_cpu_cluster_cpus_dtb_walker_cache_cpu_side  [dir=forward];
+system_cpu_cluster_cpus_itb_walker_port -> system_cpu_cluster_cpus_itb_walker_cache_cpu_side  [dir=forward];
+}
