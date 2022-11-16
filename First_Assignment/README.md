@@ -1,4 +1,6 @@
-# Question 1: Basic gem5 parameters specified in starter_se.py
+# First Assignment: Introduction to the gem5 Simulator
+
+## Task 1: Basic gem5 parameters specified in starter_se.py
 
 Parameters that can be set from the command line:
 
@@ -22,16 +24,16 @@ Other parameters:
 
 Many other parameters (such as cache sizes, latencies, associativity) are specified in different python files (eg. devices.py)
 
-# Question 2: Simulation output files
+## Task 2: Simulation output files
  We ran the simulation using the following command:
  ```
  ./build/ARM/gem5.opt -d hello_result configs/example/arm/starter_se.py --cpu="minor" "tests/test-progs/hello/bin/arm/linux/hello"
  ```
 
-In config.ini (or config.json, they are equivalent) one can find details about the configuration of the simulated system.
+In config.ini (or config.json, they are equivalent) one can find details about the configuration of the simulated system.  
 The simulation results are located in stats.txt.
 
-## a. Locate variables from question 1 in the output files
+### a. Locate variables from question 1 in the output files
 
 config.ini
 ```
@@ -79,7 +81,7 @@ system.cpu_cluster.clk_domain.clock            1000 ticks	(CPU cycle period)
 
 
 
-## b. Describe the meaning of the following stats: sim_seconds, sim_insts, host_inst_rate
+### b. Describe the meaning of the following stats: sim_seconds, sim_insts, host_inst_rate
 
 - sim_seconds: Seconds simulated from the simulated CPU perspective.
   ```
@@ -99,14 +101,15 @@ system.cpu_cluster.clk_domain.clock            1000 ticks	(CPU cycle period)
   ```
 
 
-## c. What is the total number of “committed” commands? Why is it different from the statistic presented in gem5’s results?
+### c. What is the total number of “committed” commands? Why is it different from the statistic presented in gem5’s results?
 
 ```
 sim_insts                                    	5027                   	# Number of instructions simulated
-system.cpu_cluster.cpus.committedInsts       	5027                   	# Number of instructions committed
-
-system.cpu_cluster.cpus.committedOps         	5831                   	# Number of ops (including micro ops) committed
 sim_ops                                      	5831                   	# Number of ops (including micro ops) simulated
+
+system.cpu_cluster.cpus.committedInsts       	5027                   	# Number of instructions committed
+system.cpu_cluster.cpus.committedOps         	5831                   	# Number of ops (including micro ops) committed
+
 
 system.cpu_cluster.cpus.discardedOps          1300                    # Number of ops (including micro ops) which were discarded before commit
 
@@ -118,44 +121,38 @@ system.cpu_cluster.cpus.discardedOps          1300                    # Number o
   The simulated CPU features branch prediction, which is a common technique to avoid stalling the CPU when waiting for a branch result. The CPU will guess the result of the branch, and start executing instructions, but will not "commit" them until its prediction is confirmed. If the CPU predicted incorrectly, the instructions executed can be "aborted" (by never being committed).
   
 
-## d. How many times was the L2 cache accessed? How could you calculate the accesses if they were not directly provided in the simulation results?
+### d. How many times was the L2 cache accessed? How could you calculate the accesses if they were not directly provided in the simulation results?
 Below are the stats relevant to L2 access:
 ```
 system.cpu_cluster.l2.tags.data_accesses     	7804                   	# Number of data accesses
 system.cpu_cluster.l2.demand_accesses::total      	474                   	# number of demand (read+write) accesses
 ```
 
-We can also calculate the L2 accesses by adding up all L1 cache misses:
+In theory, we can calculate L2 accesses by adding up all L1 cache misses:
 ```
-system.cpu_cluster.cpus.dcache.overall_misses::.cpu_cluster.cpus.data      	177                   	# number of overall misses
 system.cpu_cluster.cpus.dcache.overall_misses::total      	177                   	# number of overall misses
-
-system.cpu_cluster.cpus.icache.overall_misses::.cpu_cluster.cpus.inst      	327                   	# number of overall misses
 system.cpu_cluster.cpus.icache.overall_misses::total      	327                   	# number of overall misses
 ```
 
+As an interesting sidenote, we observe that the number of L1 icache misses is equal to L2 instruction misses:
 ```
 system.cpu_cluster.l2.overall_misses::.cpu_cluster.cpus.inst      	327                   	# number of overall misses
 system.cpu_cluster.l2.overall_misses::.cpu_cluster.cpus.data      	147                   	# number of overall misses
 system.cpu_cluster.l2.overall_misses::total      	474                   	# number of overall misses
 ```
 
-# Question 3: Different CPU models in gem5
+## Task 3: Different CPU models in gem5
 
-SimpleCPU
+SimpleCPU  
 Suited for cases where detailed execution is not necessary. They don’t model a pipelined execution. AtomicSimpleCPU uses “atomic” memory accesses, which only estimates latencies and cache access times. TimingSimpleCPU uses “timing” memory accesses, which is a more realistic simulation of cache behavior. 
 
-Minor CPU
+Minor CPU  
 Detailed in-order execution model with 4-stage pipeline (Fetch1, Fetch2, Decode, Execute). The first 2 stages fetch and decompose instructions into micro-ops if needed. Supports branch prediction, meaning that instructions can be issued but not committed. Has a Load/Store Queue for storing multiple outstanding memory transactions.
-
-HPI
-The High-Performance In-order (HPI) CPU timing model is tuned to be representative of a modern in-order ARMv8-A implementation. The HPI core and its supporting simulation scripts, namely starter_se.py and starter_fs.py (under /configs/example/arm/) are part of the ARM Research Starter Kit on System Modeling. More information can be found at: http://www.arm.com/ResearchEnablement/SystemModeling
-
 
 The gem5 simulator also provides a modern out-of-order CPU model (O3CPU), with high-accuracy timings and tracing/visualization capabilities.
 
 
-## a. Executing a C program in gem5 using different CPU models (TimingSimpleCPU and MinorCPU)
+### a. Executing a C program in gem5 using different CPU models (TimingSimpleCPU and MinorCPU)
 
 Below are results regarding the simulation time for the two CPU models:
 
@@ -192,51 +189,49 @@ sim_seconds                              	0.000309                   	# Number o
 sim_ticks                               	309449000                   	# Number of ticks simulated
 ```
 
-## b. Differences and similarities in the two models’ results.
+### b. Differences and similarities in the two models’ results.
 
-Explaining the differences:
-MinorCPU is a more detailed and realistic CPU model, simulating a pipeline and branch prediction. SimpleCPU doesn’t simulate those, so it’s not as realistic, but as a result it’s much simpler and faster to simulate.
+- **The differences:**  
+  MinorCPU is a more detailed and realistic CPU model, simulating a pipeline and branch prediction. SimpleCPU doesn’t simulate those, so it’s not as realistic, but as a result it’s much simpler and faster to simulate.  
 
-Compared to MinorCPU, the simulation using SimpleCPU model was a lot faster (host_seconds), as the host system was able to simulate more instructions per second (host_inst_rate).
+  Compared to MinorCPU, the simulation using SimpleCPU model was a lot faster (host_seconds), as the host system was able to simulate more instructions per second (host_inst_rate).
 
-On the other hand, we can see that MinorCPU had to simulate less than half the CPU cycles until the program's completion (system.cpu.numCycles). We also observe the following:
+  On the other hand, we can see that MinorCPU had to simulate less than half the CPU cycles until the program's completion (system.cpu.numCycles). We also observe the following:  
+  ```
+  SimpleCPU: CPI = system.cpu.numCycles  /  sim_insts = 1303722 / 419272 = 3.10948  
+  MinorCPU: CPI = system.cpu.cpi = 1.475390 
+  ```
 
-TODO: REPLACE THESE NUMBERS WITH NIKOS’ NUMBERS
-SimpleCPU: CPI = system.cpu.numCycles  /  sim_insts = 1303972 / 419219 = 3.110479
-MinorCPU: CPI = system.cpu.cpi = 1.475454
+   MinorCPU has a way better (smaller) CPI compared to SimpleCPU. That’s because MinorCpu has a 4-stage pipeline, which means that, as long as the pipeline remains relatively full (and we don’t have many stalls, hazards and branch mispredictions), we can get a CPI close to 1.  
 
-MinorCPU has a way better (smaller) CPI compared to SimpleCPU. That’s because MinorCpu has a 4-stage pipeline, which means that, as long as the pipeline remains relatively full (and we don’t have many stalls, hazards and branch mispredictions), we can get a CPI close to 1.
+   Finally, MinorCPU seems to have more memory accesses, but with a significantly higher bandwidth.  
 
-Finally, MinorCPU seems to have more memory accesses, but with a significantly higher bandwidth.
+- **The similarities:**  
+  We ran the same program, so the amount of instructions and ops is practically the same.
 
-Explaining the similarities:
-We ran the same program, so the amount of instructions and ops is practically the same.
-
-## c. Change CPU parameters (eg. memory frequency/technology) and explain the results for the two different CPU models.
-
-
-Comparison #1: Changing RAM technology & frequency
+### c. Change CPU parameters (eg. memory frequency/technology) and explain the results for the two different CPU models.
 
 We compared two different RAM technologies, DDR3_1600_8x8 and DDR4_2400_8x8, for MinorCPU and TimingSimpleCPU.
 
-The main advantages of DDR4 are:
-Lower voltage → lower power demand
-Higher supported clock frequency → higher (peak) bandwidth
-More banks (16 versus 8 in DDR3)
-Different data prefetching scheme (“8N with bank groups”)
+We know that the advantages of DDR4 are:  
+- Lower voltage → lower power demand
+- Higher supported clock frequency → higher (peak) bandwidth
+- More banks (16 versus 8 in DDR3)
+- Different data prefetching scheme (“8N with bank groups”)
 
 Thus, we paid attention to fields regarding memory bandwidth, memory latency, and memory power consumption. For example:
-
+```
 system.mem_ctrls.avgRdBW (Average DRAM read bandwidth in MiByte/s)
 system.mem_ctrls.peakBW (Theoretical peak bandwidth in MiByte/s)
 system.mem_ctrls.avgMemAccLat (Average memory access latency per DRAM burst)
 system.mem_ctrls.rank0.averagePower (Core power per rank (mW))
+```
 
-For DDR4 we observed:
-Decreased average power (system.mem_ctrls.rank0.averagePower)
-Increased maximum theoretical bandwidth (system.mem_ctrls.peakBW)
-More memory banks
+For DDR4 we observed:  
+- Decreased average power (system.mem_ctrls.rank0.averagePower)
+- Increased maximum theoretical bandwidth (system.mem_ctrls.peakBW)
+- More memory banks
 
-However, most of the expected benefits of DDR4 + higher memory frequency were not observed in the results. We assume that is because our test program was not memory intensive.
+However, most of the expected benefits of DDR4 + higher memory frequency were not observed in the results. We assume that is because our test program was not memory intensive.  
 It also becomes obvious that a larger sample/variety of simulation results would be needed to fairly compare different technologies and architecture choices.
 
