@@ -2,39 +2,39 @@
 
 Parameters that can be set from the command line:
 
-- CPU type (atomic, minor, HPI)? 		: atomic
-- Number of CPU cores					: 1
-- CPU frequency 				: 1GHz	
-- Memory type/					: DDR3_1600_8x8
-- Number of memory channels				: 2
-- Number of memory ranks per channel			: None
-- Memory size					: 2GB
-- Memory mode					: timing
+- CPU type (atomic, minor, HPI): atomic
+- Number of CPU cores: 1
+- CPU frequency: 1GHz	
+- Memory type: DDR3_1600_8x8
+- Number of memory channels: 2
+- Number of memory ranks per channel: None
+- Memory size: 2GB
+- Memory mode: timing
 
 Other parameters:
 
-- Cache line size				: 64 bytes
-- Voltage domain				: 3.3V
-- CPU voltage					: 1.2V
-- Clock domain 	(syscall emulation)		: 1GHz
+- Cache line size: 64 bytes
+- Voltage domain: 3.3V
+- CPU voltage: 1.2V
+- Clock domain 	(syscall emulation): 1GHz
 - Memory bus
 - Cache hierarchy (L1, L2 etc.)
 
-
 Many other parameters (such as cache sizes, latencies, associativity) are specified in different python files (eg. devices.py)
-
 
 # Question 2: Simulation output files
  We ran the simulation using the following command:
+ ```
  ./build/ARM/gem5.opt -d hello_result configs/example/arm/starter_se.py --cpu="minor" "tests/test-progs/hello/bin/arm/linux/hello"
+ ```
 
 In config.ini (or config.json, they are equivalent) one can find details about the configuration of the simulated system.
-stats.txt contains the simulation results.
+The simulation results are located in stats.txt.
 
 ## a. Locate variables from question 1 in the output files
 
 config.ini
-
+```
 cache_line_size=64
 
 mem_ranges=0:2147483647
@@ -64,9 +64,10 @@ eventq_index=0
 voltage=3.3
 
 type=MinorCPU
+```
 
-Stats.txt
-
+stats.txt
+```
 system.voltage_domain.voltage                3.300000
 system.cpu_cluster.voltage_domain.voltage     1.200000
 
@@ -74,58 +75,70 @@ simFreq                                  1000000000000 (10^12 Tick/Sec = 1THz)
 system.clk_domain.clock                          1000 ticks	(simulation period syscall emulation)
 system.cpu_cluster.clk_domain.clock            1000 ticks	(CPU cycle period)
 
-
-
-
-
+```
 
 
 
 ## b. Describe the meaning of the following stats: sim_seconds, sim_insts, host_inst_rate
 
-sim_seconds: Seconds simulated from the simulated CPU perspective.
-sim_seconds                              	0.000035                   	# Number of seconds simulated 
+- sim_seconds: Seconds simulated from the simulated CPU perspective.
+  ```
+  sim_seconds        0.000035        # Number of seconds simulated
+  ```
 
 
-sim_insts: Number of instructions run on the simulated CPU:
-sim_insts                                    	5027                   	# Number of instructions simulated
+- sim_insts: Number of instructions run on the simulated CPU:
+  ```
+  sim_insts          5027            # Number of instructions simulated
+  ```
 
 
-host_inst_rate: Real time number of instructions per second simulated:
-host_inst_rate                             	151942                   	# Simulator instruction rate (inst/s)
+- host_inst_rate: Real time number of instructions per second simulated:
+  ```
+  host_inst_rate     151942          # Simulator instruction rate (inst/s)
+  ```
 
 
 ## c. What is the total number of “committed” commands? Why is it different from the statistic presented in gem5’s results?
 
-system.cpu_cluster.cpus.committedInsts       	5027                   	# Number of instructions committed
-system.cpu_cluster.cpus.committedOps         	5831                   	# Number of ops (including micro ops) committed
-
+```
 sim_insts                                    	5027                   	# Number of instructions simulated
+system.cpu_cluster.cpus.committedInsts       	5027                   	# Number of instructions committed
+
+system.cpu_cluster.cpus.committedOps         	5831                   	# Number of ops (including micro ops) committed
 sim_ops                                      	5831                   	# Number of ops (including micro ops) simulated
 
-Because some big instructions are broken down to simpler ones that each take 1 cycle to complete. 
-For example, some X86 instructions are very complex and would take a lot of time to complete would make the CPU clock slower. To deal with that we break down those instructions to simpler ones that take less time to complete and this way we can increase the CPU clock.
+system.cpu_cluster.cpus.discardedOps          1300                    # Number of ops (including micro ops) which were discarded before commit
 
-The reason why the total instruction are the same as the committed ones is because the program that run was a very simple “Hello World” which does not have any branches. This means the CPU always knows the next instructions and does not execute some that it should not which would be the uncommitted ones.
+```
+- Instructions vs ops  
+  Some instructions are too complicated to execute in a single operation. At the start of the CPU pipeline (at the fetching or decoding stage), complex instructions can be broken down into multiple simpler ones, which are called "micro ops" . This is more common in x86 and CISC architectures.
 
-d. How many times was the L2 cache accessed? How could you calculate the accesses if they were not directly provided in the simulation results?
+- Issued vs committed:  
+  The simulated CPU features branch prediction, which is a common technique to avoid stalling the CPU when waiting for a branch result. The CPU will guess the result of the branch, and start executing instructions, but will not "commit" them until its prediction is confirmed. If the CPU predicted incorrectly, the instructions executed can be "aborted" (by never being committed).
+  
+
+## d. How many times was the L2 cache accessed? How could you calculate the accesses if they were not directly provided in the simulation results?
 Below are the stats relevant to L2 access:
-
+```
 system.cpu_cluster.l2.tags.data_accesses     	7804                   	# Number of data accesses
 system.cpu_cluster.l2.demand_accesses::total      	474                   	# number of demand (read+write) accesses
+```
 
 We can also calculate the L2 accesses by adding up all L1 cache misses:
-
+```
 system.cpu_cluster.cpus.dcache.overall_misses::.cpu_cluster.cpus.data      	177                   	# number of overall misses
 system.cpu_cluster.cpus.dcache.overall_misses::total      	177                   	# number of overall misses
 
 system.cpu_cluster.cpus.icache.overall_misses::.cpu_cluster.cpus.inst      	327                   	# number of overall misses
 system.cpu_cluster.cpus.icache.overall_misses::total      	327                   	# number of overall misses
+```
 
-
+```
 system.cpu_cluster.l2.overall_misses::.cpu_cluster.cpus.inst      	327                   	# number of overall misses
 system.cpu_cluster.l2.overall_misses::.cpu_cluster.cpus.data      	147                   	# number of overall misses
 system.cpu_cluster.l2.overall_misses::total      	474                   	# number of overall misses
+```
 
 # Question 3: Different CPU models in gem5
 
@@ -146,7 +159,9 @@ The gem5 simulator also provides a modern out-of-order CPU model (O3CPU), with h
 
 Below are results regarding the simulation time for the two CPU models:
 
+
 TimingSimpleCPU 
+```
 final_tick                              	651861000                   	# Number of ticks from beginning of simulation (restored from checkpoints and never reset)
 host_inst_rate                            	1516274                   	# Simulator instruction rate (inst/s)
 host_mem_usage                             	674144                   	# Number of bytes of host memory used
@@ -159,10 +174,11 @@ sim_ops                                    	556687                   	# Number o
 sim_seconds                              	0.000652                   	# Number of seconds simulated
 sim_ticks                               	651861000                   	# Number of ticks simulated
 
-
+```
 
 
 MinorCPU
+```
 final_tick                              	309449000                   	# Number of ticks from beginning of simulation (restored from checkpoints and never reset)
 host_inst_rate                             	405647                   	# Simulator instruction rate (inst/s)
 host_mem_usage                             	678752                   	# Number of bytes of host memory used
@@ -174,6 +190,7 @@ sim_insts                                  	419481                   	# Number o
 sim_ops                                    	557100                   	# Number of ops (including micro ops) simulated
 sim_seconds                              	0.000309                   	# Number of seconds simulated
 sim_ticks                               	309449000                   	# Number of ticks simulated
+```
 
 ## b. Differences and similarities in the two models’ results.
 
