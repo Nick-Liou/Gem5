@@ -70,12 +70,12 @@ type=MinorCPU
 
 stats.txt
 ```
-system.voltage_domain.voltage                3.300000
+system.voltage_domain.voltage                 3.300000
 system.cpu_cluster.voltage_domain.voltage     1.200000
 
-simFreq                                  1000000000000 (10^12 Tick/Sec = 1THz)
-system.clk_domain.clock                          1000 ticks	(simulation period syscall emulation)
-system.cpu_cluster.clk_domain.clock            1000 ticks	(CPU cycle period)
+simFreq                                       1000000000000 (10^12 Tick/Sec = 1THz)
+system.clk_domain.clock                       1000 ticks	(simulation period syscall emulation)
+system.cpu_cluster.clk_domain.clock           1000 ticks	(CPU cycle period)
 
 ```
 
