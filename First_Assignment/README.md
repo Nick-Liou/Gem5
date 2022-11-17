@@ -154,7 +154,7 @@ The gem5 simulator also provides a modern out-of-order CPU model (O3CPU), with h
 
 ### a. Executing a C program in gem5 using different CPU models (TimingSimpleCPU and MinorCPU)
 
-We created a simple program in C that uses a recursive function to calculate fibonacci numbers and in a for loop we calculated successive terms and printed them. Below are results regarding the simulation time for the two CPU models:
+We created a simple program in C that uses a recursive function to calculate fibonacci numbers and in a for loop we calculated successive terms and printed them. Below are results regarding the simulation time for the two CPU models running the fibonacci_N_arm file:
 
 
 TimingSimpleCPU 
