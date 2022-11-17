@@ -264,14 +264,14 @@ Here are a few of our thoughts:
 - Finding parameters and stats had some easy sides like finding some given stats (sim_seconds, sim_insts and host_inst_rate) but also some harder ones that we had to look through thousands of lines to stumble upon (like some voltage values). In the beginning it was harder since we hadn’t yet grasped the way the data was stored, but later we had an epiphany.
 
 Also finding some default parameters such as :
---l1d_size=64kB
---l1i_size=32kB
---l2_size=2MB
---l3_size=16MB  
---l1d_assoc=2
---l1i_assoc=2
---l2_assoc=8
---l3_assoc=16 
+- --l1d_size=64kB
+- --l1i_size=32kB
+- --l2_size=2MB
+- --l3_size=16MB  
+- --l1d_assoc=2
+- --l1i_assoc=2
+- --l2_assoc=8
+- --l3_assoc=16 
 And their corresponding flags required quite a bit of imagination to locate. 
 
 - Something a bit more irrelevant to the main assignment was to compile C code statically, more specifically the use of true/false inside the code where we had to include<stdbool.h> which was obscure for us since in all of our previous code it worked without including that library.
