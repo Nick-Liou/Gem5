@@ -124,7 +124,7 @@ system.cpu_cluster.cpus.discardedOps            1300                    # Number
 ### d. How many times was the L2 cache accessed? How could you calculate the accesses if they were not directly provided in the simulation results?
 Below are the stats relevant to L2 access:
 ```
-system.cpu_cluster.l2.tags.data_accesses     	                    7804                    # Number of data accesses
+system.cpu_cluster.l2.tags.data_accesses     	                       7804                    # Number of data accesses
 system.cpu_cluster.l2.demand_accesses::total      	                474                   	# number of demand (read+write) accesses
 ```
 
@@ -138,7 +138,7 @@ As an interesting sidenote, we observe that the number of L1 icache misses is eq
 ```
 system.cpu_cluster.l2.overall_misses::.cpu_cluster.cpus.inst      	327                   	# number of overall misses
 system.cpu_cluster.l2.overall_misses::.cpu_cluster.cpus.data      	147                   	# number of overall misses
-system.cpu_cluster.l2.overall_misses::total            	           474                   	# number of overall misses
+system.cpu_cluster.l2.overall_misses::total            	                474              	# number of overall misses
 ```
 
 ## Task 3: Different CPU models in gem5
