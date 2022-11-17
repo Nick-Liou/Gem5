@@ -235,3 +235,21 @@ For DDR4 we observed:
 However, most of the expected benefits of DDR4 + higher memory frequency were not observed in the results. We assume that is because our test program was not memory intensive.  
 It also becomes obvious that a larger sample/variety of simulation results would be needed to fairly compare different technologies and architecture choices.
 
+
+##Bibliography 
+
+GEM5
+https://www.gem5.org/
+
+SimpleCPU
+https://www.gem5.org/documentation/general_docs/cpu_models/SimpleCPU
+
+MinorCPU
+https://www.gem5.org/documentation/general_docs/cpu_models/minor_cpu
+
+Link για να δουλεψουν τα true false : 
+https://stackoverflow.com/questions/2254075/using-true-and-false-in-c
+
+Wiki 
+https://en.wikipedia.org/wiki/Micro-operation
+https://en.wikipedia.org/wiki/DDR4_SDRAM
