@@ -236,7 +236,7 @@ However, most of the expected benefits of DDR4 + higher memory frequency were no
 It also becomes obvious that a larger sample/variety of simulation results would be needed to fairly compare different technologies and architecture choices.
 
 
-##Bibliography 
+## Bibliography 
 
 GEM5
 https://www.gem5.org/
@@ -247,7 +247,7 @@ https://www.gem5.org/documentation/general_docs/cpu_models/SimpleCPU
 MinorCPU
 https://www.gem5.org/documentation/general_docs/cpu_models/minor_cpu
 
-Link για να δουλεψουν τα true false : 
+Stackoverflow
 https://stackoverflow.com/questions/2254075/using-true-and-false-in-c
 
 Wiki 
