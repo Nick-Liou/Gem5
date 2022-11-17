@@ -255,7 +255,7 @@ https://en.wikipedia.org/wiki/Micro-operation
 https://en.wikipedia.org/wiki/DDR4_SDRAM
 
 
-Feedback on Assignment 1:
+## Feedback on Assignment 1:
 
 Here are a few of our thoughts:
 - Despite not having any significant experience with Linux prior to this semester, we became more experienced and were able to overcome some basic difficulties. We also had help from the Operating Systems class, where we learned basic things about using the command line.
