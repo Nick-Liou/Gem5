@@ -124,21 +124,21 @@ system.cpu_cluster.cpus.discardedOps          1300                    # Number o
 ### d. How many times was the L2 cache accessed? How could you calculate the accesses if they were not directly provided in the simulation results?
 Below are the stats relevant to L2 access:
 ```
-system.cpu_cluster.l2.tags.data_accesses     	7804                   	# Number of data accesses
-system.cpu_cluster.l2.demand_accesses::total      	474                   	# number of demand (read+write) accesses
+system.cpu_cluster.l2.tags.data_accesses     	                    7804                    # Number of data accesses
+system.cpu_cluster.l2.demand_accesses::total      	                474                   	# number of demand (read+write) accesses
 ```
 
 In theory, we can calculate L2 accesses by adding up all L1 cache misses:
 ```
-system.cpu_cluster.cpus.dcache.overall_misses::total      	177                   	# number of overall misses
-system.cpu_cluster.cpus.icache.overall_misses::total      	327                   	# number of overall misses
+system.cpu_cluster.cpus.dcache.overall_misses::total      	        177                   	# number of overall misses
+system.cpu_cluster.cpus.icache.overall_misses::total      	        327                   	# number of overall misses
 ```
 
 As an interesting sidenote, we observe that the number of L1 icache misses is equal to L2 instruction misses:
 ```
 system.cpu_cluster.l2.overall_misses::.cpu_cluster.cpus.inst      	327                   	# number of overall misses
 system.cpu_cluster.l2.overall_misses::.cpu_cluster.cpus.data      	147                   	# number of overall misses
-system.cpu_cluster.l2.overall_misses::total      	474                   	# number of overall misses
+system.cpu_cluster.l2.overall_misses::total            	           474                   	# number of overall misses
 ```
 
 ## Task 3: Different CPU models in gem5
@@ -165,7 +165,7 @@ host_mem_usage                             	674144                   	# Number o
 host_op_rate                              	2012128                   	# Simulator op (including micro ops) rate (op/s)
 host_seconds                                 	0.28                   	# Real time elapsed on the host
 host_tick_rate                         	2355957939                   	# Simulator tick rate (ticks/s)
-sim_freq                             	1000000000000                   	# Frequency of simulated ticks
+sim_freq                             1000000000000                   	# Frequency of simulated ticks
 sim_insts                                  	419272                   	# Number of instructions simulated
 sim_ops                                    	556687                   	# Number of ops (including micro ops) simulated
 sim_seconds                              	0.000652                   	# Number of seconds simulated
@@ -182,7 +182,7 @@ host_mem_usage                             	678752                   	# Number o
 host_op_rate                               	538688                   	# Simulator op (including micro ops) rate (op/s)
 host_seconds                                 	1.03                   	# Real time elapsed on the host
 host_tick_rate                          	299218668                   	# Simulator tick rate (ticks/s)
-sim_freq                             	1000000000000                   	# Frequency of simulated ticks
+sim_freq                             1000000000000                   	# Frequency of simulated ticks
 sim_insts                                  	419481                   	# Number of instructions simulated
 sim_ops                                    	557100                   	# Number of ops (including micro ops) simulated
 sim_seconds                              	0.000309                   	# Number of seconds simulated
