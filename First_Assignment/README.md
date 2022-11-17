@@ -180,9 +180,9 @@ final_tick                              	309449000                   	# Number o
 host_inst_rate                             	405647                   	# Simulator instruction rate (inst/s)
 host_mem_usage                             	678752                   	# Number of bytes of host memory used
 host_op_rate                               	538688                   	# Simulator op (including micro ops) rate (op/s)
-host_seconds                                 	1.03                   	# Real time elapsed on the host
+host_seconds                                 	1.03                           	# Real time elapsed on the host
 host_tick_rate                          	299218668                   	# Simulator tick rate (ticks/s)
-sim_freq                             1000000000000                   	# Frequency of simulated ticks
+sim_freq                                        1000000000000                	# Frequency of simulated ticks
 sim_insts                                  	419481                   	# Number of instructions simulated
 sim_ops                                    	557100                   	# Number of ops (including micro ops) simulated
 sim_seconds                              	0.000309                   	# Number of seconds simulated
