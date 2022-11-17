@@ -115,7 +115,7 @@ system.cpu_cluster.cpus.discardedOps            1300                    # Number
 
 ```
 - Instructions vs ops  
-  Some instructions are too complicated to execute in a single operation. At the start of the CPU pipeline (at the fetching or decoding stage), complex instructions can be broken down into multiple simpler ones, which are called "micro ops" . This is more common in x86 and CISC architectures.
+  Some instructions are too complicated to execute in a single operation. At the start of the CPU pipeline (at the decoding stage), complex instructions can be broken down into multiple simpler ones, which are called "micro ops" . This is more common in x86 and CISC architectures.
 
 - Issued vs committed:  
   The simulated CPU features branch prediction, which is a common technique to avoid stalling the CPU when waiting for a branch result. The CPU will guess the result of the branch, and start executing instructions, but will not "commit" them until its prediction is confirmed. If the CPU predicted incorrectly, the instructions executed can be "aborted" (by never being committed).
