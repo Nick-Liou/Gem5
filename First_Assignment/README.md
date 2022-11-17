@@ -272,6 +272,7 @@ Also finding some default parameters such as :
 - --l1i_assoc=2
 - --l2_assoc=8
 - --l3_assoc=16 
+
 And their corresponding flags required quite a bit of imagination to locate. 
 
 - Something a bit more irrelevant to the main assignment was to compile C code statically, more specifically the use of true/false inside the code where we had to include<stdbool.h> which was obscure for us since in all of our previous code it worked without including that library.
