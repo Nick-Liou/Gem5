@@ -165,7 +165,7 @@ host_mem_usage                             	674144                   	# Number o
 host_op_rate                              	2012128                   	# Simulator op (including micro ops) rate (op/s)
 host_seconds                                 	0.28                           	# Real time elapsed on the host
 host_tick_rate                         	        2355957939                   	# Simulator tick rate (ticks/s)
-sim_freq                                     1000000000000                   	# Frequency of simulated ticks
+sim_freq                                        1000000000000                	# Frequency of simulated ticks
 sim_insts                                  	419272                   	# Number of instructions simulated
 sim_ops                                    	556687                   	# Number of ops (including micro ops) simulated
 sim_seconds                              	0.000652                   	# Number of seconds simulated
