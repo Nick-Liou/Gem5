@@ -111,7 +111,7 @@ system.cpu_cluster.cpus.committedInsts       	5027                   	# Number o
 system.cpu_cluster.cpus.committedOps         	5831                   	# Number of ops (including micro ops) committed
 
 
-system.cpu_cluster.cpus.discardedOps          1300                    # Number of ops (including micro ops) which were discarded before commit
+system.cpu_cluster.cpus.discardedOps            1300                    # Number of ops (including micro ops) which were discarded before commit
 
 ```
 - Instructions vs ops  
