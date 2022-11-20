@@ -141,7 +141,7 @@ system.cpu_cluster.l2.overall_misses::.cpu_cluster.cpus.data      	147          
 system.cpu_cluster.l2.overall_misses::total            	                474              	# number of overall misses
 ```
 
-A way to compute the total number of L2 misses is to add the L2 instrution misses and the L2 data misses.
+A way to compute the total number of L2 misses is to add the L2 instruction misses and the L2 data misses.
 
 ## Task 3: Different CPU models in gem5
 
