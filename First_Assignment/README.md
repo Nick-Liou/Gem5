@@ -2,7 +2,7 @@
 
 ## Task 1: Basic gem5 parameters specified in starter_se.py
 
-Parameters that can be set from the command line:
+Parameters that can be set from the command line with their default values:
 
 - CPU type (atomic, minor, HPI): atomic
 - Number of CPU cores: 1
@@ -13,7 +13,7 @@ Parameters that can be set from the command line:
 - Memory size: 2GB
 - Memory mode: timing
 
-Other parameters:
+Other parameters with their default values:
 
 - Cache line size: 64 bytes
 - Voltage domain: 3.3V
@@ -140,6 +140,8 @@ system.cpu_cluster.l2.overall_misses::.cpu_cluster.cpus.inst      	327          
 system.cpu_cluster.l2.overall_misses::.cpu_cluster.cpus.data      	147                   	# number of overall misses
 system.cpu_cluster.l2.overall_misses::total            	                474              	# number of overall misses
 ```
+
+A way to compute the total number of L2 misses is to add the L2 instrution misses and the L2 data misses.
 
 ## Task 3: Different CPU models in gem5
 
