@@ -1,3 +1,4 @@
+import re
 import pandas as pd
 import seaborn as sns
 from pathlib import Path
@@ -137,13 +138,82 @@ df = df[~df["Config"].str.match("(\dGHz)|(DDR3_2133_x64)")]
 # df = df[~df["Benchmark"].str.match("specsjeng|speclibm")]
 # df = df[df["Config"].str.match("(cl_256.*)|default")]
 # df = df[~df["Config"].str.match("(Cacheline.*)|(.*GHz)")]
-df = df[~df["Config"].str.match("cl_256_L2_4MB_L1i_64kB_L1d_128kB_L2_assoc_16_L1d_assoc(.*)")]
+# df = df[~df["Config"].str.match("cl_256_L2_4MB_L1i_64kB_L1d_128kB_L2_assoc_16_L1d_assoc(.*)")]
 # df = df[~df["Config"].str.match("(Cacheline.*)|(.*GHz)|(L.*L.*)|(.*assoc.*)")]
+# df = df[df["Config"].str.match("L2_.*|default")]
+
+def find_L2(conf: str):
+    f = re.search("L2_(\d+)", conf)
+    return f.group(1) if f else 2
+
+def find_L1i(conf: str):
+    f = re.search("L1i_(\d+)", conf)
+    return f.group(1) if f else 32
+
+def find_L1d(conf: str):
+    f = re.search("L1d_(\d+)", conf)
+    return f.group(1) if f else 64
+
+def find_cache_line(conf: str):
+    f = re.search("cl_(\d+)|Cacheline_(\d+)", conf)
+    if (f is None):
+        return 64 
+    if (f.group(1) is None):
+        return f.group(2)
+    else:
+        return f.group(1)
+
+def find_L1i_assoc(conf: str):
+    f = re.search("L1i_assoc_(\d+)", conf)
+    return f.group(1) if f else 2
+
+def find_L1d_assoc(conf: str):
+    f = re.search("L1d_assoc_(\d+)", conf)
+    return f.group(1) if f else 2
+
+def find_L2_assoc(conf: str):
+    f = re.search("L2_assoc_(\d+)", conf)
+    return f.group(1) if f else 8
+
+df["L1d"] = pd.to_numeric(df["Config"].apply(find_L1d))
+df["L1i"] = pd.to_numeric(df["Config"].apply(find_L1i))
+df["L2"] = pd.to_numeric(df["Config"].apply(find_L2))
+df["cacheline"] = pd.to_numeric(df["Config"].apply(find_cache_line))
+df["L1d_assoc"] = pd.to_numeric(df["Config"].apply(find_L1d_assoc))
+df["L1i_assoc"] = pd.to_numeric(df["Config"].apply(find_L1i_assoc))
+df["L2_assoc"] = pd.to_numeric(df["Config"].apply(find_L2_assoc))
+
+def cost(df: pd.DataFrame):
+    b1, b2, b3, b4, b5, b6, b7 = [5, 5, 2, 2, 8, 8, 4]
+    a1, a2, a3, a4, a5, a6, a7 = [b1/64, b2/32, b3/2, b4/64, b5/2, b6/2, b7/8]
+    cost = a1*df["L1d"] + a2*df["L1i"] + a3*df["L2"] + a4*df["cacheline"] \
+         +  a5*df["L1d_assoc"] + a6*df["L1i_assoc"] + a7*df["L2_assoc"] 
+    return cost/(b1+b2+b3+b4+b5+b6+b7)
+
+df["Cost"] = cost(df)
+
+
+default_cpi = df[df["Config"] == "default"][["Benchmark","system.cpu.cpi"]]
+default_cpi.rename(columns={"system.cpu.cpi": "default_cpi"}, inplace=True)
+df = df.merge(default_cpi, on="Benchmark")
+df["speedup"] = df["default_cpi"]/df["system.cpu.cpi"]
+
+df["pcr"] = (df["speedup"]/df["Cost"])
+
+df = df.groupby("Config").mean().reset_index(level=0).sort_values(by=["speedup"])
+df = df[["Config", "Cost", "speedup", "pcr"]].sort_values(by="pcr").tail(20)
+sns.barplot(data=df, y="Config", x="pcr")
+plt.subplots_adjust(left  = 0.3)
+plt.show(block=True)
+# df.to_csv("pcr.csv", index=False)
+
+print()
+
 
 #plot_clock_comp(df)
 # plot_params(df)
 # plot_cacheline(df)
-plot_all(df)
+# plot_all(df)
 # plot_L1i(df)
 # plot_L1d(df)
 # plot_L2(df)

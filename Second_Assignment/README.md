@@ -138,6 +138,18 @@ In this step, we want to find the CPU cache parameters (size, assosciativity, li
 Checking all different combinations of parameters for L1d, L1i and L2 cache would not be very efficient, so we came up with the following methodology:  
 We start from a "reasonable" configuration (the default values for MinorCPU), and then we tweak the parameters, one at a time, to observe their effect. Using shell and python scripts, the simulation, data retrieval and plotting was in large part automated.
 
+Here are the default MinorCPU values. **In all below configurations, when no value is specified, it means that we used the default**.
+
+```
+cacheline_size=64
+l1d_size=64kB 
+l1i_size=32kB 
+l2_size=2MB
+l1d_assoc=2 
+l1i_assoc=2 
+l2_assoc=8 
+```
+
 First of all, here's what we expected CPU cache's effect on performance:
 - Cache sizes  
   We know that larger cache sizes are generally beneficial, as they help minimize cache misses.  
@@ -145,8 +157,6 @@ First of all, here's what we expected CPU cache's effect on performance:
   Higher assosciativity reduces conflict misses, since data that arrives on the cache has less of a chance to displace potentially useful data.
 - Cache line size  
    Larger pieces of data are retreived, taking advantage of locality. However, for a constant amount of memory, larger cache lines will lead to fewer cache lines, which results in more capacity/conflict misses. 
-
-In gem5, we can change the above parameters without necessarily "paying" the cost of higher complexity or latency.
 
 ### 2: Results
 
@@ -263,11 +273,99 @@ Thus, we used a "speedup" metric, which is defined as the CPI of each benchmark 
 
 ## Step 3: Optimization of cost/performance ratio
 
-In computer architecture design, all choices have benefits and drawbacks, thus any potential improvements need to be measured against the "cost" they may introduce. That cost can be in the additional area of silicon a component takes up, or it might be in the additional complexity and latency it introduces.
+In computer architecture design, all choices have benefits and drawbacks, thus any potential improvements need to be measured against the "cost" they may introduce. 
 
-In addition, on the previous task we saw that the performance difference can be negligable for some changes in configurations, depending on the workload. 
+That cost can be one of the following:
 
 + heat / TDP  
-+ waffers/ yield rates depending on die size 
-+ all choices have benefits and drawbacks, well expect making something rly dumb to smart 
++ additional complexity -> latency.
++ additional area of silicon -> waffers/ yield rates depending on die size 
 
+It is expected that some changes, while they may improve performance, they also introduce an disproportionate cost, which makes them not optimal. Thus, the best performing configurations in step 2 will probably have a prohibitive cost relative to their performance uplift. In addition, we expected to be able to cut corners on some non-critical specs, to give room for the most influential specs.
+
+We devised a cost function that takes as input the CPU configuration parameters, normalizes them based on the default MinorCPU values, uses different weight for each parameter, and calculates a cost value for each configuration. This function is a linear combination of the parameters (in reality it would probably be non-linear).
+
+Then, for each CPU configuration, we calculate the Performance to Cost Ratio (PCR), which is the speedup (Instructions per Cycle normalized for each benchmark) divided by the cost of that configuration (given by the cost function).
+
+Below is the cost function that was used (using Python - Pandas modules). The weights are based on our intuition, and could probably be tuned further:
+
+```python
+def cost(df: pd.DataFrame):
+    b1, b2, b3, b4, b5, b6, b7 = [5, 5, 2, 2, 8, 8, 4]
+    a1, a2, a3, a4, a5, a6, a7 = [b1/64, b2/32, b3/2, b4/64, b5/2, b6/2, b7/8]
+    cost = a1*df["L1d"] + a2*df["L1i"] + a3*df["L2"] + a4*df["cacheline"] +  a5*df["L1d_assoc"] + a6*df["L1i_assoc"] + a7*df["L2_assoc"] 
+    return cost/(b1+b2+b3+b4+b5+b6+b7)
+```
+
+Using the PCR value, we can rank the configurations we tested. Here are the best performing ones:
+
+![](spec_results/plots/pcr/best.png)
+
+Here are the worst performing ones:
+
+![](spec_results/plots/pcr/worst.png)
+
+Here are all speedup, cost and PCR values for the configurations we tested (sorted by PCR):
+
+|Config                                                               |Cost              |speedup           |pcr               |
+|---------------------------------------------------------------------|------------------|------------------|------------------|
+|cl_256_L2_4MB_L1i_64kB_L1d_128kB_L2_assoc_16_L1d_assoc_4_L1i_assoc_16|3.5294117647058827|1.394727942180765 |0.3951729169512168|
+|cl_256_L2_4MB_L1i_64kB_L1d_128kB_L2_assoc_16_L1d_assoc_8_L1i_assoc_8 |3.0588235294117645|1.3959037411019   |0.4563531461294673|
+|cl_256_L2_4MB_L1i_64kB_L1d_128kB_L2_assoc_16_L1d_assoc_4_L1i_assoc_8 |2.588235294117647 |1.3947119331028104|0.5388659741533586|
+|L2_assoc_64                                                          |1.8235294117647058|0.9998888141545146|0.5483261238911854|
+|L1d_assoc_8                                                          |1.7058823529411764|1.0027801901775113|0.5878366632075067|
+|L1i_assoc_8                                                          |1.7058823529411764|1.0248691686702702|0.6007853747377447|
+|L1d_128kB_L1i_64kB_L2_4MB_L2_assoc_16_L1d_assoc_4                    |1.7058823529411764|1.0336242839109184|0.6059176836719178|
+|L1d_128kB_L1i_64kB_L2_1MB_L2_assoc_16_L1d_assoc_4                    |1.6176470588235294|1.0246571562452218|0.6334244238606825|
+|cl_256_L2_4MB_L1i_64kB_L1d_128kB_L2_assoc_16_L1d_assoc_4_L1i_assoc_4 |2.1176470588235294|1.3947305840802877|0.6586227758156914|
+|Cacheline_16                                                         |0.9558823529411764|0.667542427086224 |0.6983520775671266|
+|L1d_128kB_L1i_64kB_L2_4MB_L2_assoc_16                                |1.4705882352941178|1.032557423923098 |0.7021390482677066|
+|L2_assoc_32                                                          |1.3529411764705883|0.9999214909684234|0.739072406367965 |
+|L1d_128kB_L1i_64kB_L2_1MB_L2_assoc_16                                |1.3823529411764706|1.0236441469303679|0.7405085318219683|
+|L1d_128kB_L1i_64kB_L2_4MB                                            |1.3529411764705883|1.0324894913765852|0.7631444066696499|
+|L1d_128kB_L1i_64kB                                                   |1.2941176470588236|1.028815422048155 |0.7949937352190288|
+|L1d_128kB_L1i_64kB_L2_1MB                                            |1.2647058823529411|1.0234041962978178|0.8092033180029258|
+|L1d_assoc_4                                                          |1.2352941176470589|1.0020177780466648|0.8111572488949191|
+|L1i_assoc_4                                                          |1.2352941176470589|1.0248706293501608|0.8296571761406064|
+|Cacheline_32                                                         |0.9705882352941175|0.8269773253967264|0.8520372443481424|
+|L1d_128kB                                                            |1.1470588235294117|1.0038953254655467|0.8751907965597076|
+|L1i_64kB                                                             |1.1470588235294117|1.0248470284081126|0.8934563837404059|
+|L2_assoc_16                                                          |1.1176470588235294|0.9997971076483937|0.8945553068432996|
+|cl_128_L1d_assoc_4                                                   |1.2941176470588236|1.1727738890792945|0.9062343688340002|
+|cl_128_L1i_assoc_4                                                   |1.2941176470588236|1.2063970829202337|0.9322159277110895|
+|L2_4MB                                                               |1.0588235294117647|1.0035169329772848|0.9477659922563246|
+|cl_256_L1d_assoc_4                                                   |1.411764705882353 |1.3537763933841525|0.9589249453137747|
+|cl_256_L1i_assoc_4                                                   |1.411764705882353 |1.3731367219059332|0.972638511350036 |
+|cl_128_L1d_128kB                                                     |1.2058823529411764|1.1749124507419773|0.974317642078713 |
+|cl_128_L2_assoc_16                                                   |1.1764705882352942|1.1705460438533313|0.9949641372753316|
+|default                                                              |1.0               |1.0               |1.0               |
+|cl_128_L1i_64kB                                                      |1.2058823529411764|1.206482796346822 |1.0004979286778526|
+|cl_256_L1d_128kB                                                     |1.3235294117647058|1.3566568487852435|1.025029619082184 |
+|L2_1MB                                                               |0.9705882352941175|0.9955074888047323|1.0256743824048757|
+|cl_256_L2_assoc_16                                                   |1.2941176470588236|1.3513897190842221|1.0442556920196262|
+|cl_256_L1i_64kB                                                      |1.3235294117647058|1.3853358831714602|1.0466982228406587|
+|cl_128_L2_4MB                                                        |1.1176470588235294|1.1735281044839472|1.0499988303277423|
+|L2_assoc_4                                                           |0.9411764705882353|1.0001068811791995|1.0626135612528995|
+|L1i_16kB                                                             |0.9264705882352942|0.9851128357071177|1.0632963940965716|
+|L1d_32kB                                                             |0.9264705882352942|0.9961731125592689|1.0752344706988932|
+|L2_assoc_2                                                           |0.9117647058823529|0.9989885857655555|1.095664900517061 |
+|cl_256_L2_4MB                                                        |1.2352941176470589|1.3536340449802593|1.095798988793543 |
+|L1i_assoc_1                                                          |0.8823529411764707|0.9749218865401266|1.1049114714121435|
+|Cacheline_128                                                        |1.0588235294117647|1.1706181858199394|1.105583842163276 |
+|L1d_assoc_1                                                          |0.8823529411764707|0.9907562544296897|1.1228570883536484|
+|cl_128_L2_1MB                                                        |1.0294117647058822|1.166753050160333 |1.1334172487271807|
+|Cacheline_256                                                        |1.1764705882352942|1.3514515790991175|1.14873384223425  |
+|cl_128_L2_assoc_4                                                    |1.0               |1.170680918327676 |1.170680918327676 |
+|cl_128_L1i_16kB                                                      |0.9852941176470589|1.1564753582658653|1.1737361845086394|
+|cl_256_L2_1MB                                                        |1.1470588235294117|1.3477296790330064|1.1749438227467235|
+|cl_128_L1d_32kB                                                      |0.9852941176470589|1.166362431199271 |1.1837708256947825|
+|cl_256_L1i_16kB                                                      |1.1029411764705883|1.326242734778369 |1.2024600795323876|
+|cl_256_L2_assoc_4                                                    |1.1176470588235294|1.351530010018745 |1.2092636931746665|
+|cl_256_L1d_32kB                                                      |1.1029411764705883|1.3458197666049367|1.2202099217218092|
+|cl_128_L1i_assoc_1                                                   |0.9411764705882353|1.1555992200211362|1.2278241712724571|
+|cl_128_L1d_assoc_1                                                   |0.9411764705882353|1.1571102326089766|1.2294296221470378|
+|cl_256_L1d_assoc_1                                                   |1.0588235294117647|1.3222359048188599|1.2487783545511455|
+|cl_256_L1i_assoc_1                                                   |1.0588235294117647|1.3320113894143781|1.258010756669135 |
+
+
+From this data, we confirm our prediction that the most high-spec CPUs have a very large cost compared to the speedup they provide, and thus have a small PCR. The best configurations are a result of more fine-tuned architectural choices.
