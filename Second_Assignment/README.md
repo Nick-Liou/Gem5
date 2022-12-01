@@ -35,6 +35,8 @@ size=2097152
 From the above graphs, the first and most abvious observation is that the CPI is proportional to the simulated seconds which is expected since the cpu is running exactly at the same frequency. Also it is apparent that high d-cache miss rate is stongly correlated to high CPI rate.
 
 ### 3. Changing the CPU clock
+
+For the default 2GHz:
 ```
 sim_freq                                 1000000000000                       # Frequency of simulated ticks
 
@@ -44,7 +46,29 @@ system.cpu_clk_domain.clock                       500                       # Cl
 
 ```
 
-When we change the frequency of the simulated CPU, system.cpu_clk_domain.clock changes proportionally, while system.clk_domain.clock remains constant.
+
+For 1GHz:
+```
+sim_freq                                 1000000000000                       # Frequency of simulated ticks
+
+system.clk_domain.clock                          1000                       # Clock period in ticks
+
+system.cpu_clk_domain.clock                      1000                       # Clock period in ticks
+
+```
+
+
+For 3GHz:
+```
+sim_freq                                 1000000000000                       # Frequency of simulated ticks
+
+system.clk_domain.clock                          1000                       # Clock period in ticks
+
+system.cpu_clk_domain.clock                       333                       # Clock period in ticks
+
+```
+
+When we change the frequency of the simulated CPU, system.cpu_clk_domain.clock changes inverse proportionally, while system.clk_domain.clock remains constant.
 
 Also, we notice the following entries in config.ini:
 ```
