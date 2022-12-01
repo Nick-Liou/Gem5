@@ -112,7 +112,7 @@ This is to be expected, as a higher RAM clock allows for less latency and higher
 In this step, we want to find the CPU cache parameters (size, assosciativity, line size) that maximize performance on SPEC2006 benchmarks. 
 
 Checking all different combinations of parameters for L1d, L1i and L2 cache would not be very efficient, so we came up with the following methodology:  
-We start from a "reasonable" configuration (the default values for MinorCPU), and then we tweak the parameters, one at a time, to observe their effect.
+We start from a "reasonable" configuration (the default values for MinorCPU), and then we tweak the parameters, one at a time, to observe their effect. Using shell and python scripts, the simulation, data retrieval and plotting was in large part automated.
 
 First of all, here's what we expected CPU cache's effect on performance:
 - Cache sizes  
@@ -126,7 +126,11 @@ In gem5, we can change the above parameters without necessarily "paying" the cos
 
 ### 2: Results
 
-Below are the results for tweaking different parameters. They were somewhat unexpected, since we expected more significant differences when changing cache sizes, especially for benchmarks with many misses. Increasing the cache line size seemed to have the most significant positive effect on all benchmarks.
+Below are the results for tweaking different parameters. We expected more significant differences when changing cache sizes, especially for benchmarks with many cache misses. Looking at stats.txt for different configurations, we notice that although all parameters are successfully set, most of them don't seem to affect cache misses that much.  
+
+Increasing the cache line size seemed to have the most significant positive effect on all benchmarks.This could be explained by the fact that with larger cache lines, more data is fetched by the cache when we have a miss. 
+
+However, we need to keep in mind that this would increase latencies on a real systems, which might decrease performance.
 
 ![](spec_results/plots/optimization_cachelines.png)
 ![](spec_results/plots/optimization_L1d.png)
