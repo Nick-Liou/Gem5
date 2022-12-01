@@ -109,7 +109,12 @@ This is to be expected, as a higher RAM clock allows for less latency and higher
 ## Step 2: Design Exploration - Performance Optimization
 
 ### 1: Exploration methodology
-First of all, here's what we know about CPU cache's effect on performance:
+In this step, we want to find the CPU cache parameters (size, assosciativity, line size) that maximize performance on SPEC2006 benchmarks. 
+
+Checking all different combinations of parameters for L1d, L1i and L2 cache would not be very efficient, so we came up with the following methodology:  
+We start from a "reasonable" configuration (the default values for MinorCPU), and then we tweak the parameters, one at a time, to observe their effect.
+
+First of all, here's what we expected CPU cache's effect on performance:
 - Cache sizes  
   We know that larger cache sizes are generally beneficial, as they help minimize cache misses.  
 - Cache assosciativity  
@@ -118,3 +123,19 @@ First of all, here's what we know about CPU cache's effect on performance:
    Larger pieces of data are retreived, taking advantage of locality. However, for a constant amount of memory, larger cache lines will lead to fewer cache lines, which results in more capacity/conflict misses. 
 
 In gem5, we can change the above parameters without necessarily "paying" the cost of higher complexity or latency.
+
+### 2: Results
+
+Below are the results for tweaking different parameters. They were somewhat unexpected, since we expected more significant differences when changing cache sizes, especially for benchmarks with many misses. Increasing the cache line size seemed to have the most significant positive effect on all benchmarks.
+
+![](spec_results/plots/optimization_cachelines.png)
+![](spec_results/plots/optimization_L1d.png)
+![](spec_results/plots/optimization_L1i.png)
+![](spec_results/plots/optimization_L2.png)
+![](spec_results/plots/optimization_L1d_assoc.png)
+![](spec_results/plots/optimization_L1i_assoc.png)
+![](spec_results/plots/optimization_L2_assoc.png)
+
+
+
+
