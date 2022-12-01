@@ -108,23 +108,23 @@ tXAW=30000  -> 25000
 
 Also, in stats.txt, we noticed improvement on the following metrics:
 ```
-system.l2.overall_avg_miss_latency::total 77752.102348                       # average overall miss latency
+system.l2.overall_avg_miss_latency::total                  # average overall miss latency
 
-system.mem_ctrls.bw_total::total           1098278144                       # Total bandwidth to/from this memory (bytes/s)
+system.mem_ctrls.bw_total::total                           # Total bandwidth to/from this memory (bytes/s)
 
-system.mem_ctrls.priorityMinLatency      0.000000016842                       # per QoS priority minimum request to response latency (s)
-system.mem_ctrls.priorityMaxLatency      0.000895893688                       # per QoS priority maximum request to response latency (s)
+system.mem_ctrls.priorityMinLatency                        # per QoS priority minimum request to response latency (s)
+system.mem_ctrls.priorityMaxLatency                        # per QoS priority maximum request to response latency (s)
 
-system.mem_ctrls.totBusLat                 5584668152                       # Total ticks spent in databus transfers
-system.mem_ctrls.totMemAccLat             39704848222                       # Total ticks spent from burst creation until serviced by the DRAM
-system.mem_ctrls.avgQLat                      9833.28                       # Average queueing delay per DRAM burst
-system.mem_ctrls.avgBusLat                    3752.00                       # Average bus latency per DRAM burst
+system.mem_ctrls.totBusLat                                 # Total ticks spent in databus transfers
+system.mem_ctrls.totMemAccLat                              # Total ticks spent from burst creation until serviced by the DRAM
+system.mem_ctrls.avgQLat                                   # Average queueing delay per DRAM burst
+system.mem_ctrls.avgBusLat                                 # Average bus latency per DRAM burst
 
-system.mem_ctrls.avgRdBW                       555.36                       # Average DRAM read bandwidth in MiByte/s
-system.mem_ctrls.avgWrBW                       542.91                       # Average achieved write bandwidth in MiByte/s
-system.mem_ctrls.avgRdBWSys                    555.36                       # Average system read bandwidth in MiByte/s
-system.mem_ctrls.avgWrBWSys                    542.92                       # Average system write bandwidth in MiByte/s
-system.mem_ctrls.peakBW                      17057.00                       # Theoretical peak bandwidth in MiByte/s
+system.mem_ctrls.avgRdBW                                   # Average DRAM read bandwidth in MiByte/s
+system.mem_ctrls.avgWrBW                                   # Average achieved write bandwidth in MiByte/s
+system.mem_ctrls.avgRdBWSys                                # Average system read bandwidth in MiByte/s
+system.mem_ctrls.avgWrBWSys                                # Average system write bandwidth in MiByte/s
+system.mem_ctrls.peakBW                                    # Theoretical peak bandwidth in MiByte/s
 
 ```
 
