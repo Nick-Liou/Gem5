@@ -87,6 +87,7 @@ def plot_all(df: pd.DataFrame):
     df = df.merge(default_cpi, on="Benchmark")
     print(df)
     df["speedup"] = df["system.cpu.cpi"]/df["default_cpi"]
+    # df = df.sort_values(by=["system.cpu.cpi"], ascending=True).drop_duplicates("Benchmark")
     print(df[["Config", "system.cpu.cpi"]])
     sns.catplot(data=df, x="Benchmark", 
 #       y="system.cpu.dcache.overall_miss_rate::total", 
@@ -123,10 +124,10 @@ df[["Benchmark", "Config"]] = df["Benchmarks"].str.split("/", expand=True)
 df.drop("Benchmarks", axis=1, inplace=True)
 # df["Config"] = df["Config"].str.removeprefix("cl_256_")
 # df = df[df["Config"].str.match("(L2_assoc_\d+)|default")]
-#df = df[df["Config"].str.match("(\dGHz)|default")]
-# df = df[df["Config"].str.match("(cl_256.*)|default")]
-df = df[~df["Config"].str.match("(Cacheline.*)|(.*GHz)")]
-df = df[df["Config"].str.match("(..............)(.*)|default")]
+# df = df[~df["Config"].str.match("(\dGHz)|(DDR3_2133_x64)")]
+df = df[df["Config"].str.match("(cl_256.*)|default")]
+# df = df[~df["Config"].str.match("(Cacheline.*)|(.*GHz)")]
+# df = df[df["Config"].str.match("(..............)(.*)|default")]
 # df = df[~df["Config"].str.match("(Cacheline.*)|(.*GHz)|(L.*L.*)|(.*assoc.*)")]
 
 #plot_clock_comp(df)
