@@ -174,11 +174,13 @@ _              |  _
 ![](spec_results/plots/optimization/L2_assoc.png) |
 
 
-After observing these results, we decided to run another set of benchmarks, this time keeping the cache line size at 256, since it seemed to give the best performance, and changing the other parameters..
+After observing these results, we decided to run another set of benchmarks, this time with cache line size of 128 and 256, since they seemed to give better performance, and changing the other parameters.
 
 Here are a few graphs of the different configurations:
 
-![](spec_results/plots/optimization2/cl_256.png)
+_              |  _
+:-------------:|:--------------:
+![](spec_results/plots/optimization2/cl_256.png) | ![](spec_results/plots/optimization2/cl_128.png)
 
 From all these, we selected and plotted the best performing configurations for each benchmark:
 
