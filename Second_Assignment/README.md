@@ -36,7 +36,7 @@ From the above graphs, the first and most abvious observation is that the CPI is
 
 ### 3. Changing the CPU clock
 
-For the default 2Ghz:
+For the default 2GHz:
 ```
 sim_freq                                 1000000000000                       # Frequency of simulated ticks
 
@@ -47,7 +47,7 @@ system.cpu_clk_domain.clock                       500                       # Cl
 ```
 
 
-For 1Ghz:
+For 1GHz:
 ```
 sim_freq                                 1000000000000                       # Frequency of simulated ticks
 
@@ -58,7 +58,7 @@ system.cpu_clk_domain.clock                      1000                       # Cl
 ```
 
 
-For 3Ghz:
+For 3GHz:
 ```
 sim_freq                                 1000000000000                       # Frequency of simulated ticks
 
