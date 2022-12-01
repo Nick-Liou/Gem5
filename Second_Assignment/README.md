@@ -128,7 +128,7 @@ In gem5, we can change the above parameters without necessarily "paying" the cos
 
 Below are the results for tweaking different parameters. We expected more significant differences when changing cache sizes, especially for benchmarks with many cache misses. Looking at stats.txt for different configurations, we notice that although all parameters are successfully set, most of them don't seem to affect cache misses that much.  
 
-Increasing the cache line size seemed to have the most significant positive effect on all benchmarks.This could be explained by the fact that with larger cache lines, more data is fetched by the cache when we have a miss. 
+Increasing the cache line size seemed to have the most significant positive effect on all benchmarks. This could be explained by the fact that with larger cache lines, more data is fetched into the cache when we have a miss, taking advantage of data locality. 
 
 However, we need to keep in mind that this would increase latencies on a real systems, which might decrease performance.
 
@@ -142,4 +142,7 @@ However, we need to keep in mind that this would increase latencies on a real sy
 
 
 
+## Step 3: Optimization of cost/performance ratio
+
+In computer architecture design, all choices have benefits and drawbacks, thus any potential improvements need to be measured against the "cost" they may introduce. That cost can be in the additional area of silicon a component takes up, or it might be in the additional complexity and latency it introduces.
 
