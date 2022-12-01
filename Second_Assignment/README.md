@@ -26,11 +26,11 @@ size=2097152
 ```
 
 ### 2. Plots of fundemental measurements
-![sim_seconds](spec_results/plots/sim_seconds.png)
-![cpi](spec_results/plots/cpi.png)
-![d-cache_miss_rate](spec_results/plots/d-cache_miss_rate.png)
-![i-cache_miss_rate](spec_results/plots/i-cache_miss_rate.png)
-![L2_miss_rate](spec_results/plots/L2_miss_rate.png)
+_              |  _
+:-------------------------:|:-------------------------:
+![sim_seconds](spec_results/plots/sim_seconds.png) | ![cpi](spec_results/plots/cpi.png)
+![d-cache_miss_rate](spec_results/plots/d-cache_miss_rate.png) | ![i-cache_miss_rate](spec_results/plots/i-cache_miss_rate.png)
+![L2_miss_rate](spec_results/plots/L2_miss_rate.png) |
 
 From the above graphs, the first and most abvious observation is that the CPI is proportional to the simulated seconds which is expected since the cpu is running exactly at the same frequency. Also it is apparent that high d-cache miss rate is stongly correlated to high CPI rate.
 
@@ -156,15 +156,13 @@ Increasing the cache line size seemed to have the most significant positive effe
 
 However, we need to keep in mind that this would increase latencies on a real systems, which might decrease performance.
 
-Solarized dark             |  Solarized Ocean
+_              |  _
 :-------------------------:|:-------------------------:
 ![](spec_results/plots/optimization/cachelines.png) | ![](spec_results/plots/optimization/L1d.png)
 ![](spec_results/plots/optimization/L1i.png) | ![](spec_results/plots/optimization/L2.png)
 ![](spec_results/plots/optimization/L1d_assoc.png) | ![](spec_results/plots/optimization/L1i_assoc.png)
 ![](spec_results/plots/optimization/L2_assoc.png) |
 
-<!-- Here's a few configurations where we changed more than one parameter at a time:
-![](spec_results/plots/optimization/combinations.png) -->
 
 After observing these results, we decided to run another set of benchmarks, this time keeping the cache line size at 256, since it seemed to give the best performance, and changing the other parameters..
 
@@ -256,7 +254,7 @@ From all this data we collected, we can see the 10 configurations with the best 
 |cl_256_L2_assoc_16                                                   |5.175774      |
 
 
-Next, we wanted to find the configuration that gave the best general performance in all benchmarks. In order to do that, we had to normalize the CPI for each benchmark, because otherwise benchmarks with higher CPI values would disproportionally affect our choice. 
+Next, we were curious to find the configuration that gave the best general performance in all benchmarks. In order to do that, we had to normalize the CPI for each benchmark, because otherwise benchmarks with higher CPI values would disproportionally affect our choice. 
 
 Thus, we used a "speedup" metric, which is defined as the CPI of each benchmark result, normalized by the CPI of the default configuration on the same benchmark. Then, we found the average speedup of each configuration for all benchmarks. The best configurations were those that resulted in the highest average speedup.
 
