@@ -83,18 +83,24 @@ def plot_all(df: pd.DataFrame):
     default_cpi.rename(columns={"system.cpu.cpi": "default_cpi"}, inplace=True)
     # print(seq_data)
 
-    print(default_cpi)
+    # print(default_cpi)
     df = df.merge(default_cpi, on="Benchmark")
-    print(df)
-    df["speedup"] = df["system.cpu.cpi"]/df["default_cpi"]
-    # df = df.sort_values(by=["system.cpu.cpi"], ascending=True).drop_duplicates("Benchmark")
-    print(df[["Config", "system.cpu.cpi"]])
-    sns.catplot(data=df, x="Benchmark", 
+    df["speedup"] = df["default_cpi"]/df["system.cpu.cpi"]
+    # print(df[["Benchmark","Config", "speedup"]])
+    # df = df.sort_values(by=["system.cpu.cpi"], ascending=True).groupby("Benchmark").head(10)[["Benchmark","Config", "system.cpu.cpi"]]
+    df = df.groupby("Config").mean().reset_index(level=0).sort_values(by=["speedup"], ascending=False).head(30)
+    # print(df)
+    # print(df[["Benchmark","Config", "system.cpu.cpi"]])
+    
+    sns.barplot(data=df, y="Config", 
 #       y="system.cpu.dcache.overall_miss_rate::total", 
-        y="system.cpu.cpi",
+        x="speedup",
         # y="speedup", 
-    kind="bar", hue="Config")
-    plt.ylim(bottom=0.8)
+    # kind="bar"
+    )
+    # plt.ylim(bottom=0.8)
+    # plt.tight_layout()
+    plt.subplots_adjust(left  = 0.4)
     plt.show(block=True)
 
 def plot_params(df: pd.DataFrame):
@@ -120,12 +126,16 @@ def plot_default(df: pd.DataFrame):
 
 
 df = pd.read_csv("results.txt", delim_whitespace=True)
+df2 = pd.read_csv("results_large.txt", delim_whitespace=True)
+df = pd.concat([df, df2])
+
 df[["Benchmark", "Config"]] = df["Benchmarks"].str.split("/", expand=True)
 df.drop("Benchmarks", axis=1, inplace=True)
 # df["Config"] = df["Config"].str.removeprefix("cl_256_")
-# df = df[df["Config"].str.match("(L2_assoc_\d+)|default")]
-# df = df[~df["Config"].str.match("(\dGHz)|(DDR3_2133_x64)")]
-df = df[df["Config"].str.match("(cl_256.*)|default")]
+# df = df[df["Config"].str.match("(L2_assoc_\d+.*)|default")]
+df = df[~df["Config"].str.match("(\dGHz)|(DDR3_2133_x64)")]
+df = df[~df["Benchmark"].str.match("specsjeng|speclibm")]
+# df = df[df["Config"].str.match("(cl_256.*)|default")]
 # df = df[~df["Config"].str.match("(Cacheline.*)|(.*GHz)")]
 # df = df[df["Config"].str.match("(..............)(.*)|default")]
 # df = df[~df["Config"].str.match("(Cacheline.*)|(.*GHz)|(L.*L.*)|(.*assoc.*)")]

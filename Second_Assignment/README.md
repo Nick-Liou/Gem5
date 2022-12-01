@@ -169,6 +169,82 @@ Here's a few configurations with more than one change at a time:
 
 
 
+specmcf
+
+|Config                                                               |system.cpu.cpi|
+|---------------------------------------------------------------------|--------------|
+|cl_256_L2_4MB_L1i_64kB_L1d_128kB_L2_assoc_16_L1d_assoc_8_L1i_assoc_8 |1.10746       |
+|cl_256_L2_4MB_L1i_64kB_L1d_128kB_L2_assoc_16_L1d_assoc_4_L1i_assoc_16|1.10763       |
+|cl_256_L2_4MB_L1i_64kB_L1d_128kB_L2_assoc_16_L1d_assoc_4_L1i_assoc_8 |1.10763       |
+|cl_256_L2_4MB_L1i_64kB_L1d_128kB_L2_assoc_16_L1d_assoc_4_L1i_assoc_4 |1.10763       |
+|cl_256_L1i_64kB                                                      |1.110613      |
+|cl_128_L1i_64kB                                                      |1.124752      |
+|cl_128_L1i_assoc_4                                                   |1.124828      |
+|L1d_128kB_L1i_64kB_L2_4MB_L2_assoc_16_L1d_assoc_4                    |1.154547      |
+|L1d_128kB_L1i_64kB_L2_4MB                                            |1.154704      |
+|L1d_128kB_L1i_64kB_L2_4MB_L2_assoc_16                                |1.154704      |
+
+### spechmmer
+
+|Config                                                               |system.cpu.cpi|
+|---------------------------------------------------------------------|--------------|
+|cl_256_L2_4MB_L1i_64kB_L1d_128kB_L2_assoc_16_L1d_assoc_8_L1i_assoc_8 |1.177095      |
+|cl_256_L2_4MB_L1i_64kB_L1d_128kB_L2_assoc_16_L1d_assoc_4_L1i_assoc_16|1.177306      |
+|cl_256_L2_4MB_L1i_64kB_L1d_128kB_L2_assoc_16_L1d_assoc_4_L1i_assoc_8 |1.177306      |
+|cl_256_L2_4MB_L1i_64kB_L1d_128kB_L2_assoc_16_L1d_assoc_4_L1i_assoc_4 |1.177387      |
+|cl_256_L1d_128kB                                                     |1.17844       |
+|cl_256_L1i_64kB                                                      |1.179064      |
+|cl_256_L1d_assoc_4                                                   |1.179175      |
+|cl_256_L1i_assoc_4                                                   |1.179334      |
+|Cacheline_256                                                        |1.179864      |
+|cl_256_L2_4MB                                                        |1.179864      |
+
+### specbzip
+
+|Config                                                               |system.cpu.cpi|
+|---------------------------------------------------------------------|--------------|
+|cl_256_L2_4MB_L1i_64kB_L1d_128kB_L2_assoc_16_L1d_assoc_8_L1i_assoc_8 |1.591869      |
+|cl_256_L2_4MB_L1i_64kB_L1d_128kB_L2_assoc_16_L1d_assoc_4_L1i_assoc_4 |1.600096      |
+|cl_256_L2_4MB_L1i_64kB_L1d_128kB_L2_assoc_16_L1d_assoc_4_L1i_assoc_16|1.600188      |
+|cl_256_L2_4MB_L1i_64kB_L1d_128kB_L2_assoc_16_L1d_assoc_4_L1i_assoc_8 |1.600344      |
+|L1d_128kB_L1i_64kB_L2_4MB_L2_assoc_16_L1d_assoc_4                    |1.616081      |
+|L1d_128kB_L1i_64kB_L2_4MB_L2_assoc_16                                |1.623941      |
+|L1d_128kB_L1i_64kB_L2_4MB                                            |1.624346      |
+|cl_256_L1d_128kB                                                     |1.624496      |
+|cl_128_L1d_128kB                                                     |1.634732      |
+|cl_256_L1d_assoc_4                                                   |1.645503      |
+
+### speclibm
+
+|Config                                                               |system.cpu.cpi|
+|---------------------------------------------------------------------|--------------|
+|cl_256_L2_4MB                                                        |1.989307      |
+|cl_256_L2_4MB_L1i_64kB_L1d_128kB_L2_assoc_16_L1d_assoc_4_L1i_assoc_16|1.989308      |
+|cl_256_L2_4MB_L1i_64kB_L1d_128kB_L2_assoc_16_L1d_assoc_8_L1i_assoc_8 |1.989308      |
+|cl_256_L2_4MB_L1i_64kB_L1d_128kB_L2_assoc_16_L1d_assoc_4_L1i_assoc_8 |1.989308      |
+|cl_256_L2_4MB_L1i_64kB_L1d_128kB_L2_assoc_16_L1d_assoc_4_L1i_assoc_4 |1.989308      |
+|cl_256_L1i_64kB                                                      |1.990606      |
+|cl_256_L1i_16kB                                                      |1.990648      |
+|cl_256_L1d_assoc_4                                                   |1.990648      |
+|cl_256_L1d_32kB                                                      |1.990648      |
+|cl_256_L2_assoc_16                                                   |1.990648      |
+
+### specsjeng
+
+|Config                                                               |system.cpu.cpi|
+|---------------------------------------------------------------------|--------------|
+|cl_256_L2_4MB_L1i_64kB_L1d_128kB_L2_assoc_16_L1d_assoc_8_L1i_assoc_8 |5.171358      |
+|cl_256_L2_4MB_L1i_64kB_L1d_128kB_L2_assoc_16_L1d_assoc_4_L1i_assoc_4 |5.171385      |
+|cl_256_L2_4MB_L1i_64kB_L1d_128kB_L2_assoc_16_L1d_assoc_4_L1i_assoc_8 |5.171385      |
+|cl_256_L2_4MB_L1i_64kB_L1d_128kB_L2_assoc_16_L1d_assoc_4_L1i_assoc_16|5.171443      |
+|cl_256_L2_4MB                                                        |5.17157       |
+|cl_256_L1d_assoc_4                                                   |5.17556       |
+|cl_256_L1d_128kB                                                     |5.175684      |
+|Cacheline_256                                                        |5.175719      |
+|cl_256_L1i_64kB                                                      |5.175745      |
+|cl_256_L2_assoc_16                                                   |5.175774      |
+
+
 ## Step 3: Optimization of cost/performance ratio
 
 In computer architecture design, all choices have benefits and drawbacks, thus any potential improvements need to be measured against the "cost" they may introduce. That cost can be in the additional area of silicon a component takes up, or it might be in the additional complexity and latency it introduces.
