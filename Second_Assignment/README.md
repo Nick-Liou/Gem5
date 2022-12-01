@@ -132,13 +132,16 @@ Increasing the cache line size seemed to have the most significant positive effe
 
 However, we need to keep in mind that this would increase latencies on a real systems, which might decrease performance.
 
-![](spec_results/plots/optimization_cachelines.png)
-![](spec_results/plots/optimization_L1d.png)
-![](spec_results/plots/optimization_L1i.png)
-![](spec_results/plots/optimization_L2.png)
-![](spec_results/plots/optimization_L1d_assoc.png)
-![](spec_results/plots/optimization_L1i_assoc.png)
-![](spec_results/plots/optimization_L2_assoc.png)
+![](spec_results/plots/optimization/cachelines.png)
+![](spec_results/plots/optimization/L1d.png)
+![](spec_results/plots/optimization/L1i.png)
+![](spec_results/plots/optimization/L2.png)
+![](spec_results/plots/optimization/L1d_assoc.png)
+![](spec_results/plots/optimization/L1i_assoc.png)
+![](spec_results/plots/optimization/L2_assoc.png)
+
+Here's a few configurations with more than one change at a time:
+![](spec_results/plots/optimization/combinations.png)
 
 
 

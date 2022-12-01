@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
     
     
 def plot_L1d(df: pd.DataFrame):
-    df["Config"] = df["Config"].str.replace("default", "L1d_64kB")
+    # df["Config"] = df["Config"].str.replace("default", "L1d_64kB")
     df = df[df["Config"].str.match("L1d_\d+kB")]
     print(df[["Config", "system.cpu.cpi"]])
     df.sort_values(by=["Config"], inplace=True)
@@ -20,7 +20,7 @@ def plot_L1d(df: pd.DataFrame):
     plt.show(block=True)
 
 def plot_L1i(df: pd.DataFrame):
-    df["Config"] = df["Config"].str.replace("default", "L1i_32kB")
+    # df["Config"] = df["Config"].str.replace("default", "L1i_32kB")
     df = df[df["Config"].str.match("L1i_\d+kB")]
     print(df[["Config", "system.cpu.cpi"]])
     df.sort_values(by=["Config"], inplace=True)
@@ -59,10 +59,11 @@ def plot_cacheline(df: pd.DataFrame):
     df = df[df["Config"].str.match("Cacheline_\d+")]
     df["Config"] = pd.to_numeric(df["Config"].str.removeprefix("Cacheline_"))
     print(df[["Config", "system.cpu.cpi"]])
+    df.rename(columns={"Config":"Cache_line_size"}, inplace=True)
     sns.catplot(data=df, x="Benchmark", 
 #       y="system.cpu.dcache.overall_miss_rate::total", 
         y="system.cpu.cpi", 
-    kind="bar", hue="Config")
+    kind="bar", hue="Cache_line_size")
     plt.show(block=True)
 
 def plot_clock_comp(df: pd.DataFrame):
@@ -73,7 +74,7 @@ def plot_clock_comp(df: pd.DataFrame):
 #       y="system.cpu.dcache.overall_miss_rate::total", 
         y="sim_seconds",
     kind="bar", hue="Config")
-    plt.savefig("plots/clock_comp.png")
+    # plt.savefig("plots/clock_comp.png")
     plt.show(block=True)
 
 def plot_all(df: pd.DataFrame):
@@ -103,23 +104,38 @@ def plot_params(df: pd.DataFrame):
         y="sim_seconds",
     kind="bar")
     plt.ylabel("simulated seconds")
-    # plt.show(block=True)
-    plt.savefig("sim_seconds.png")
+    plt.show(block=True)
+    # plt.savefig("sim_seconds.png")
+
+def plot_default(df: pd.DataFrame):
+    df = df[df["Config"] == "default"]
+    sns.catplot(data=df, x="Benchmark", 
+#       y="system.cpu.dcache.overall_miss_rate::total", 
+        # y="system.cpu.cpi",
+        y = "system.l2.overall_miss_rate::total",
+    kind="bar")
+    plt.ylabel("L2 miss rate")
+    plt.show(block=True)
 
 
 df = pd.read_csv("results.txt", delim_whitespace=True)
 df[["Benchmark", "Config"]] = df["Benchmarks"].str.split("/", expand=True)
 df.drop("Benchmarks", axis=1, inplace=True)
+# df["Config"] = df["Config"].str.removeprefix("cl_256_")
 # df = df[df["Config"].str.match("(L2_assoc_\d+)|default")]
 #df = df[df["Config"].str.match("(\dGHz)|default")]
+# df = df[df["Config"].str.match("(cl_256.*)|default")]
+df = df[~df["Config"].str.match("(Cacheline.*)|(.*GHz)")]
+df = df[df["Config"].str.match("(..............)(.*)|default")]
 # df = df[~df["Config"].str.match("(Cacheline.*)|(.*GHz)|(L.*L.*)|(.*assoc.*)")]
 
 #plot_clock_comp(df)
 # plot_params(df)
-plot_cacheline(df)
-# plot_all(df)
+# plot_cacheline(df)
+plot_all(df)
 # plot_L1i(df)
 # plot_L1d(df)
 # plot_L2(df)
 # plot_assoc(df)
+# plot_default(df)
 
