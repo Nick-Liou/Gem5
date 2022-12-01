@@ -30,6 +30,7 @@ size=2097152
 ![cpi](spec_results/plots/cpi.png)
 ![d-cache_miss_rate](spec_results/plots/d-cache_miss_rate.png)
 ![i-cache_miss_rate](spec_results/plots/i-cache_miss_rate.png)
+![L2_miss_rate](spec_results/plots/L2_miss_rate.png)
 
 From the above graphs, the first and most abvious observation is that the CPI is proportional to the simulated seconds which is expected since the cpu is running exactly at the same frequency. Also it is apparent that high d-cache miss rate is stongly correlated to high CPI rate.
 
