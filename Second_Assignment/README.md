@@ -156,20 +156,31 @@ Increasing the cache line size seemed to have the most significant positive effe
 
 However, we need to keep in mind that this would increase latencies on a real systems, which might decrease performance.
 
-![](spec_results/plots/optimization/cachelines.png)
-![](spec_results/plots/optimization/L1d.png)
-![](spec_results/plots/optimization/L1i.png)
-![](spec_results/plots/optimization/L2.png)
-![](spec_results/plots/optimization/L1d_assoc.png)
-![](spec_results/plots/optimization/L1i_assoc.png)
-![](spec_results/plots/optimization/L2_assoc.png)
+Solarized dark             |  Solarized Ocean
+:-------------------------:|:-------------------------:
+![](spec_results/plots/optimization/cachelines.png) | ![](spec_results/plots/optimization/L1d.png)
+![](spec_results/plots/optimization/L1i.png) | ![](spec_results/plots/optimization/L2.png)
+![](spec_results/plots/optimization/L1d_assoc.png) | ![](spec_results/plots/optimization/L1i_assoc.png)
+![](spec_results/plots/optimization/L2_assoc.png) |
 
-Here's a few configurations with more than one change at a time:
-![](spec_results/plots/optimization/combinations.png)
+<!-- Here's a few configurations where we changed more than one parameter at a time:
+![](spec_results/plots/optimization/combinations.png) -->
 
+After observing these results, we decided to run another set of benchmarks, this time keeping the cache line size at 256, since it seemed to give the best performance, and changing the other parameters..
 
+Here are a few graphs of the different configurations:
 
-specmcf
+![](spec_results/plots/optimization2/cl_256.png)
+
+From all these, we selected and plotted the best performing configurations for each benchmark:
+
+![](spec_results/plots/optimization2/best_configs_v3.png)
+
+ We can observe that certain characteristics produce the best results, thus we made combinations of them that would lead to optimal performance.
+
+From all this data we collected, we can see the 10 configurations with the best CPI on the following tables: 
+
+### specmcf
 
 |Config                                                               |system.cpu.cpi|
 |---------------------------------------------------------------------|--------------|
@@ -245,9 +256,18 @@ specmcf
 |cl_256_L2_assoc_16                                                   |5.175774      |
 
 
+Next, we wanted to find the configuration that gave the best general performance in all benchmarks. In order to do that, we had to normalize the CPI for each benchmark, because otherwise benchmarks with higher CPI values would disproportionally affect our choice. 
+
+Thus, we used a "speedup" metric, which is defined as the CPI of each benchmark result, normalized by the CPI of the default configuration on the same benchmark. Then, we found the average speedup of each configuration for all benchmarks. The best configurations were those that resulted in the highest average speedup.
+
+![](spec_results/plots/optimization2/avg_speedup_top30.png)
+
+
 ## Step 3: Optimization of cost/performance ratio
 
 In computer architecture design, all choices have benefits and drawbacks, thus any potential improvements need to be measured against the "cost" they may introduce. That cost can be in the additional area of silicon a component takes up, or it might be in the additional complexity and latency it introduces.
+
+In addition, on the previous task we saw that the performance difference can be negligable for some changes in configurations, depending on the workload. 
 
 + heat / TDP  
 + waffers/ yield rates depending on die size 

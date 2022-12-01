@@ -87,20 +87,20 @@ def plot_all(df: pd.DataFrame):
     df = df.merge(default_cpi, on="Benchmark")
     df["speedup"] = df["default_cpi"]/df["system.cpu.cpi"]
     # print(df[["Benchmark","Config", "speedup"]])
-    # df = df.sort_values(by=["system.cpu.cpi"], ascending=True).groupby("Benchmark").head(10)[["Benchmark","Config", "system.cpu.cpi"]]
-    df = df.groupby("Config").mean().reset_index(level=0).sort_values(by=["speedup"], ascending=False).head(30)
+    df = df.sort_values(by=["system.cpu.cpi"], ascending=True).groupby("Benchmark").head(2)[["Benchmark","Config", "system.cpu.cpi"]]
+    # df = df.groupby("Config").mean().reset_index(level=0).sort_values(by=["speedup"], ascending=False).head(30)
     # print(df)
     # print(df[["Benchmark","Config", "system.cpu.cpi"]])
     
-    sns.barplot(data=df, y="Config", 
+    sns.catplot(data=df, x="Benchmark", 
 #       y="system.cpu.dcache.overall_miss_rate::total", 
-        x="speedup",
+        y="system.cpu.cpi",
         # y="speedup", 
-    # kind="bar"
+    kind="bar", hue="Config"
     )
     # plt.ylim(bottom=0.8)
     # plt.tight_layout()
-    plt.subplots_adjust(left  = 0.4)
+    # plt.subplots_adjust(left  = 0.4)
     plt.show(block=True)
 
 def plot_params(df: pd.DataFrame):
@@ -134,10 +134,10 @@ df.drop("Benchmarks", axis=1, inplace=True)
 # df["Config"] = df["Config"].str.removeprefix("cl_256_")
 # df = df[df["Config"].str.match("(L2_assoc_\d+.*)|default")]
 df = df[~df["Config"].str.match("(\dGHz)|(DDR3_2133_x64)")]
-df = df[~df["Benchmark"].str.match("specsjeng|speclibm")]
+# df = df[~df["Benchmark"].str.match("specsjeng|speclibm")]
 # df = df[df["Config"].str.match("(cl_256.*)|default")]
 # df = df[~df["Config"].str.match("(Cacheline.*)|(.*GHz)")]
-# df = df[df["Config"].str.match("(..............)(.*)|default")]
+df = df[~df["Config"].str.match("cl_256_L2_4MB_L1i_64kB_L1d_128kB_L2_assoc_16_L1d_assoc(.*)")]
 # df = df[~df["Config"].str.match("(Cacheline.*)|(.*GHz)|(L.*L.*)|(.*assoc.*)")]
 
 #plot_clock_comp(df)
