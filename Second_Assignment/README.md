@@ -173,3 +173,7 @@ Here's a few configurations with more than one change at a time:
 
 In computer architecture design, all choices have benefits and drawbacks, thus any potential improvements need to be measured against the "cost" they may introduce. That cost can be in the additional area of silicon a component takes up, or it might be in the additional complexity and latency it introduces.
 
++ heat / TDP  
++ waffers/ yield rates depending on die size 
++ all choices have benefits and drawbacks, well expect making something rly dumb to smart 
+
