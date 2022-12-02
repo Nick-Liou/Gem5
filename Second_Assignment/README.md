@@ -308,7 +308,10 @@ We devised a cost function of the following form:
 
 $$cost(x_1, x_2 , ... ,x_n) =  c\sum_{i=1}^{n}\frac{w_i}{a_i}x_i $$
 
-$$c = \frac{1}{ \sum_{i=1}^{n} w_i }$$
+
+$$cost(x_1, x_2 , ... ,x_n) = \frac{1}{c}\sum_{i=1}^{n}\frac{w_i}{a_i}x_i $$
+
+$$c = \sum_{i=1}^{n} w_i $$
 
 
 $$c = \frac{1}{ (\sum_{i=1}^{n}) w_i }$$
