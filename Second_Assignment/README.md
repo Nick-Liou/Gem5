@@ -307,9 +307,10 @@ It is expected that some changes, while they may improve performance, they also 
 We devised a cost function of the following form:
 
 $$cost(x_1, x_2 , ... ,x_n) =  c\sum_{i=1}^{n}\frac{w_i}{a_i}x_i $$
+$$c = \frac{1}{ \sum_{i=1}^{n}w_i $$
 
 
- Inputs $x_1, ... ,x_n$ are the values of CPU configuration parameters, which are normalized them using $a_1, ... ,a_n$. Then, a different weight is used for each parameter, $w_1, ... ,w_n$. The sum calculates a cost value for each configuration. For simplicity, this function is expressed as a linear combination of the parameters (in the real world, we know that a non-linear function, with complex relationships between variables, would be more appropriate).
+ Inputs $x_1, ... ,x_n$ are the values of CPU configuration parameters, which are normalized using $a_1, ... ,a_n$. Then, a different weight is used for each parameter, $w_1, ... ,w_n$. The sum calculates a cost value for each configuration. For simplicity, this function is expressed as a linear combination of the parameters (in the real world, we know that a non-linear function, with complex relationships between variables, would be more appropriate).
 
 In this example, inputs $x_1, ... ,x_n$ and their units are shown below. Also, $a_1, ... ,a_n$ and $c$ were chosen so that the default MinorCPU configuration has a cost of 1, while the weights $w_1, ... ,w_n$ were chosen based on intuition:
 
