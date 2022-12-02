@@ -386,3 +386,11 @@ For better and more accurate conclusions, here are a few things we could have do
 - Running the simulations all the way to the end (in the above benchmarks, we only allowed gem5 to run up to 100000000 instructions).
 - Running a larger number and variety of benchmarks, that accurately represent the average workload of a modern system.
 - Directly use the PCR metric to choose which configurations to explore, instead of using CPI.
+
+
+
+
+## Feedback on Assignment 2
+- We were able to make automation and plotting scripts using shell script and python, however we believe that more guidance would be beneficial, especially for people who may not be familiar with them.
+- We were able to run many simulations at the same time in parallel, which sped up the proccess significantly.
+- The cost-performance analysis was very interesting, but never discussed before in class. Thus, we had to improvise.
