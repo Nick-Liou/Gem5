@@ -32,7 +32,7 @@ _              |  _
 ![d-cache_miss_rate](spec_results/plots/d-cache_miss_rate.png) | ![i-cache_miss_rate](spec_results/plots/i-cache_miss_rate.png)
 ![L2_miss_rate](spec_results/plots/L2_miss_rate.png) |
 
-From the above graphs, the first and most abvious observation is that the CPI is proportional to the simulated seconds which is expected since the cpu is running exactly at the same frequency. Also it is apparent that high d-cache miss rate is stongly correlated to high CPI rate.
+From the above graphs, the first and most obvious observation is that the CPI is proportional to the simulated seconds, which is expected since the CPU is running exactly at the same frequency for all benchmarks. Also, it is apparent that high d-cache miss rate is stongly correlated to high CPI rate.
 
 ### 3. Changing the CPU clock
 
@@ -133,38 +133,42 @@ This is to be expected, as a higher RAM clock allows for less latency and higher
 ## Step 2: Design Exploration - Performance Optimization
 
 ### 1: Exploration methodology
-In this step, we want to find the CPU cache parameters (size, assosciativity, line size) that maximize performance on SPEC2006 benchmarks. 
+In this step, we want to find the CPU cache parameters that maximize performance on SPEC2006 benchmarks.
 
-Checking all different combinations of parameters for L1d, L1i and L2 cache would not be very efficient, so we came up with the following methodology:  
+The parameters we will tune are the following:
+
+Parameter             | Default value for MinorCPU
+:-------------------------:|:-------------------------:
+cacheline_size | 64
+l1d_size |64kB 
+l1i_size | 32kB 
+l2_size | 2MB
+l1d_assoc | 2 
+l1i_assoc | 2 
+l2_assoc | 8 
+
+**In all configurations that will follow, when no value is specified, it means that we used the default.**
+
+Checking all different combinations of parameters is, of course, not possible, so we came up with the following methodology:  
 We start from a "reasonable" configuration (the default values for MinorCPU), and then we tweak the parameters, one at a time, to observe their effect. Using shell and python scripts, the simulation, data retrieval and plotting was in large part automated.
-
-Here are the default MinorCPU values. **In all below configurations, when no value is specified, it means that we used the default**.
-
-```
-cacheline_size=64
-l1d_size=64kB 
-l1i_size=32kB 
-l2_size=2MB
-l1d_assoc=2 
-l1i_assoc=2 
-l2_assoc=8 
-```
 
 First of all, here's what we expected CPU cache's effect on performance:
 - Cache sizes  
-  We know that larger cache sizes are generally beneficial, as they help minimize cache misses.  
+  We know that larger cache sizes are generally beneficial, as they help minimize cache misses. However, too large cache sizes introduce latency, take up silicon space (cost) and consume more energy. 
 - Cache assosciativity  
-  Higher assosciativity reduces conflict misses, since data that arrives on the cache has less of a chance to displace potentially useful data.
+  Higher assosciativity reduces conflict misses, since data that arrives on the cache has less of a chance to displace potentially useful data. However, it also results in higher latency and power demand.
 - Cache line size  
-   Larger pieces of data are retreived, taking advantage of locality. However, for a constant amount of memory, larger cache lines will lead to fewer cache lines, which results in more capacity/conflict misses. 
+   Larger pieces of data are retreived, taking better advantage of locality (reduced compulsory misses). However, for a constant amount of memory, the larger the cache lines, the fewer of them we can have, which results in more capacity/conflict misses. 
 
 ### 2: Results
 
-Below are the results for tweaking different parameters. We expected more significant differences when changing cache sizes, especially for benchmarks with many cache misses. Looking at stats.txt for different configurations, we notice that although all parameters are successfully set, most of them don't seem to affect cache misses that much.  
+Below are the results for tweaking different parameters.
 
-Increasing the cache line size seemed to have the most significant positive effect on all benchmarks. This could be explained by the fact that with larger cache lines, more data is fetched into the cache when we have a miss, taking advantage of data locality. 
+We expected more significant differences when changing cache sizes, especially for benchmarks with many cache misses. Looking at stats.txt for different configurations, we notice that although all parameters are successfully set ( we double checked :D ), most of them don't seem to affect cache misses that much.  
 
-However, we need to keep in mind that this would increase latencies on a real systems, which might decrease performance.
+Increasing the cache line size seemed to have the most significant positive effect on all benchmarks.
+
+However, we need to keep in mind that this would increase latencies on a real systems, which might decrease performance. The gem5 simulator might not take all these side-effects into account by default.
 
 _              |  _
 :-------------------------:|:-------------------------:
@@ -174,7 +178,7 @@ _              |  _
 ![](spec_results/plots/optimization/L2_assoc.png) |
 
 
-After observing these results, we decided to run another set of benchmarks, this time with cache line size of 128 and 256, since they seemed to give better performance, and changing the other parameters.
+After observing these results, we decided to run another set of benchmarks, this time with cache line size of 128 and 256, since they seemed to give better performance. Keeping those at their new values, we tweaked the other parameters.
 
 Here are a few graphs of the different configurations:
 
@@ -188,9 +192,13 @@ From all these, we selected and plotted the best performing configurations for e
 
  We can observe that certain characteristics produce the best results, thus we made combinations of them that would lead to optimal performance.
 
-From all this data we collected, we can see the 10 configurations with the best CPI on the following tables: 
+From all this data we collected, we can see the 10 configurations with the best CPI for each benchmark on the following tables (sorted by increasing CPI).
 
-### specmcf
+(**when no value is specified, it means that we used the default**): 
+   
+    
+
+### **`specmcf`**
 
 |Config                                                               |system.cpu.cpi|
 |---------------------------------------------------------------------|--------------|
@@ -205,7 +213,7 @@ From all this data we collected, we can see the 10 configurations with the best 
 |L1d_128kB_L1i_64kB_L2_4MB                                            |1.154704      |
 |L1d_128kB_L1i_64kB_L2_4MB_L2_assoc_16                                |1.154704      |
 
-### spechmmer
+### **`spechmmer`**
 
 |Config                                                               |system.cpu.cpi|
 |---------------------------------------------------------------------|--------------|
@@ -220,7 +228,7 @@ From all this data we collected, we can see the 10 configurations with the best 
 |Cacheline_256                                                        |1.179864      |
 |cl_256_L2_4MB                                                        |1.179864      |
 
-### specbzip
+### **`specbzip`**
 
 |Config                                                               |system.cpu.cpi|
 |---------------------------------------------------------------------|--------------|
@@ -235,7 +243,7 @@ From all this data we collected, we can see the 10 configurations with the best 
 |cl_128_L1d_128kB                                                     |1.634732      |
 |cl_256_L1d_assoc_4                                                   |1.645503      |
 
-### speclibm
+### **`speclibm`**
 
 |Config                                                               |system.cpu.cpi|
 |---------------------------------------------------------------------|--------------|
@@ -250,7 +258,7 @@ From all this data we collected, we can see the 10 configurations with the best 
 |cl_256_L1d_32kB                                                      |1.990648      |
 |cl_256_L2_assoc_16                                                   |1.990648      |
 
-### specsjeng
+### **`specsjeng`**
 
 |Config                                                               |system.cpu.cpi|
 |---------------------------------------------------------------------|--------------|
@@ -266,30 +274,30 @@ From all this data we collected, we can see the 10 configurations with the best 
 |cl_256_L2_assoc_16                                                   |5.175774      |
 
 
-Next, we were curious to find the configuration that gave the best general performance in all benchmarks. In order to do that, we had to normalize the CPI for each benchmark, because otherwise benchmarks with higher CPI values would disproportionally affect our choice. 
+Next, we were curious to find the configuration that gave the best general performance in all benchmarks. In order to do that, we had to normalize the IPC for each benchmark, so that all benchmarks have the same influence regardless of the order of magnitude of their CPI. 
 
-Thus, we used a "speedup" metric, which is defined as the CPI of each benchmark result, normalized by the CPI of the default configuration on the same benchmark. Then, we found the average speedup of each configuration for all benchmarks. The best configurations were those that resulted in the highest average speedup.
+Thus, we used a "speedup" metric, which is defined as the IPC of each benchmark result, normalized by the IPC of the default configuration on the same benchmark. Then, we found the average speedup of each configuration for all benchmarks. The best configurations were those that resulted in the highest average speedup.
 
 ![](spec_results/plots/optimization2/avg_speedup_top30.png)
 
 
-## Step 3: Optimization of cost/performance ratio
+## Step 3: Optimization of performance/cost ratio
 
-In computer architecture design, all choices have benefits and drawbacks, thus any potential improvements need to be measured against the "cost" they may introduce. 
+In computer architecture design, all choices have benefits and drawbacks, thus any potential improvements need to be measured against the "cost" they introduce. 
 
 That cost can be one of the following:
 
 + heat / TDP  
-+ additional complexity -> latency.
-+ additional area of silicon -> waffers/ yield rates depending on die size 
++ additional complexity -> latency
++ additional area of silicon -> waffers/ yield rates depending on die size -> dollar cost
 
-It is expected that some changes, while they may improve performance, they also introduce an disproportionate cost, which makes them not optimal. Thus, the best performing configurations in step 2 will probably have a prohibitive cost relative to their performance uplift. In addition, we expected to be able to cut corners on some non-critical specs, to give room for the most influential specs.
+It is expected that some changes, while they may improve performance, they also introduce an disproportionate cost, which makes them not optimal. Thus, the best performing configurations in step 2 will probably have a prohibitive cost relative to their performance uplift. In addition, we expect to be able to cut corners on some non-critical specs, and give priority to the most influential specs.
 
-We devised a cost function that takes as input the CPU configuration parameters, normalizes them based on the default MinorCPU values, uses different weight for each parameter, and calculates a cost value for each configuration. This function is a linear combination of the parameters (in reality it would probably be non-linear).
+We devised a cost function that takes as input the CPU configuration parameters, normalizes them based on the default MinorCPU values, uses different weight for each parameter, and calculates a cost value for each configuration. For simplicity, this function is expressed as a linear combination of the parameters (in the real world, we know that a non-linear function, with complex relationships between variables, would be more appropriate).
 
 Then, for each CPU configuration, we calculate the Performance to Cost Ratio (PCR), which is the speedup (Instructions per Cycle normalized for each benchmark) divided by the cost of that configuration (given by the cost function).
 
-Below is the cost function that was used (using Python - Pandas modules). The weights are based on our intuition, and could probably be tuned further:
+Below is the cost function that was used (using Python - Pandas modules). The weights are based on our intuition (and only their relative values compared to each other are important), but they suit the purposes of this demonstration:
 
 ```python
 def cost(df: pd.DataFrame):
@@ -298,6 +306,8 @@ def cost(df: pd.DataFrame):
     cost = a1*df["L1d"] + a2*df["L1i"] + a3*df["L2"] + a4*df["cacheline"] +  a5*df["L1d_assoc"] + a6*df["L1i_assoc"] + a7*df["L2_assoc"] 
     return cost/(b1+b2+b3+b4+b5+b6+b7)
 ```
+
+The cost, speedup and PCR values are normalized so that the default configuration has cost, speedup and PCR equal to 1.
 
 Using the PCR value, we can rank the configurations we tested. Here are the best performing ones:
 
@@ -371,3 +381,8 @@ Here are all speedup, cost and PCR values for the configurations we tested (sort
 
 
 From this data, we confirm our prediction that the most high-spec CPUs have a very large cost compared to the speedup they provide, and thus have a small PCR. The best configurations are a result of more fine-tuned architectural choices.
+
+For better and more accurate conclusions, here are a few things we could have done differently:
+- Running the simulations all the way to the end (in the above benchmarks, we only allowed gem5 to run up to 100000000 instructions).
+- Running a larger number and variety of benchmarks, that accurately represent the average workload of a modern system.
+- Directly use the PCR metric to choose which configurations to explore, instead of using CPI.
