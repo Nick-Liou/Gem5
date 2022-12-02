@@ -85,7 +85,7 @@ clk_domain=system.clk_domain
 We can conclude that different things in the system run on different clocks. CPU and CPU caches have the same clock, while a different clock is used for the memory bus.
 
 Below, we can assess how the CPU clock affects total performance.   
-In tasks that are not memory-bound, the speedup is proportional to the change in clock speed. However, in tasks that are memory-bound (such as specsjeng), while there is still an improvement, it's not as significant.
+In tasks that are not memory-bound, the speedup is proportional to the change in clock speed. However, in tasks that are memory-bound (such as specsjeng), while there is still an improvement, it's not as significant. Therefor there is not a perfect scaling in performance by only increasing the frequency of the CPU.
 
 ![clock_comp](spec_results/plots/clock_comp.png)
 
