@@ -32,6 +32,17 @@ _              |  _
 ![d-cache_miss_rate](spec_results/plots/d-cache_miss_rate.png) | ![i-cache_miss_rate](spec_results/plots/i-cache_miss_rate.png)
 ![L2_miss_rate](spec_results/plots/L2_miss_rate.png) |
 
+Here are the exact values for the above runs:
+
+|Benchmark                                              |sim_seconds|cpi      |dcache_miss_rate|icache_miss_rate|L2_miss_rate|
+|-------------------------------------------------------|-----------|---------|----------------|----------------|------------|
+|specbzip                                               |0.083982   |1.679650 |0.014798        |0.000077        |0.282163    |
+|spechmmer                                              |0.059396   |1.187917 |0.001637        |0.000221        |0.077760    |
+|speclibm                                               |0.174671   |3.493415 |0.060972        |0.000094        |0.999944    |
+|specmcf                                                |0.064955   |1.299095 |0.002108        |0.023612        |0.055046    |
+|specsjeng                                              |0.513528   |10.270554|0.121831        |0.000020        |0.999972    |
+
+
 From the above graphs, the first and most obvious observation is that the CPI is proportional to the simulated seconds, which is expected since the CPU is running exactly at the same frequency for all benchmarks. Also, it is apparent that high d-cache miss rate is stongly correlated to high CPI rate.
 
 ### 3. Changing the CPU clock
@@ -293,21 +304,28 @@ That cost can be one of the following:
 
 It is expected that some changes, while they may improve performance, they also introduce an disproportionate cost, which makes them not optimal. Thus, the best performing configurations in step 2 will probably have a prohibitive cost relative to their performance uplift. In addition, we expect to be able to cut corners on some non-critical specs, and give priority to the most influential specs.
 
-We devised a cost function that takes as input the CPU configuration parameters, normalizes them based on the default MinorCPU values (and in order to not have very large number in the normalization the parameters for the L1 cache are in KB and for the L2 are in MB, as for the assosietivies and for the cache line size that do not have numbers there is not a mesuring unit to specify), uses different weight for each parameter, and calculates a cost value for each configuration. For simplicity, this function is expressed as a linear combination of the parameters (in the real world, we know that a non-linear function, with complex relationships between variables, would be more appropriate).
+We devised a cost function of the following form:
+
+$$cost(x_1, x_2 , ... ,x_n) =  c\sum_{i=1}^{n}\frac{w_i}{a_i}x_i $$
+
+
+ Inputs $x_1, ... ,x_n$ are the values of CPU configuration parameters, which are normalized them using $a_1, ... ,a_n$. Then, a different weight is used for each parameter, $w_1, ... ,w_n$. The sum calculates a cost value for each configuration. For simplicity, this function is expressed as a linear combination of the parameters (in the real world, we know that a non-linear function, with complex relationships between variables, would be more appropriate).
+
+In this example, inputs are $x_1, ... ,x_n$, in the units shown below. Also, $a_1, ... ,a_n$ and $c$ were chosen so that the default MinorCPU configuration has a cost of 1, while the weights $w_1, ... ,w_n$ were chosen based on intuition:
+
+| Parameter $(x)$     |normalization $(a)$|weight $(w)$|
+|---------------|-|-|
+|L1i (kB)        |32|5|
+|L1d (kB)        |64|5|
+|L2 (MB)         |2|2|
+|cacheline size |64|2|
+|L1i_assoc      |2|8|
+|L1d_assoc      |2|8|
+|L2_assoc       |8|4|
 
 Then, for each CPU configuration, we calculate the Performance to Cost Ratio (PCR), which is the speedup (Instructions per Cycle normalized for each benchmark) divided by the cost of that configuration (given by the cost function).
 
-Below is the cost function that was used (using Python - Pandas modules). The weights are based on our intuition (and only their relative values compared to each other are important), but they suit the purposes of this demonstration:
-
-```python
-def cost(df: pd.DataFrame):
-    b1, b2, b3, b4, b5, b6, b7 = [5, 5, 2, 2, 8, 8, 4]
-    a1, a2, a3, a4, a5, a6, a7 = [b1/64, b2/32, b3/2, b4/64, b5/2, b6/2, b7/8]
-    cost = a1*df["L1d"] + a2*df["L1i"] + a3*df["L2"] + a4*df["cacheline"] +  a5*df["L1d_assoc"] + a6*df["L1i_assoc"] + a7*df["L2_assoc"] 
-    return cost/(b1+b2+b3+b4+b5+b6+b7)
-```
-
-The cost, speedup and PCR values are normalized so that the default configuration has cost, speedup and PCR equal to 1.
+Again, we remind that the cost, speedup and PCR values are normalized so that the default configuration has cost, speedup and PCR equal to 1.
 
 Using the PCR value, we can rank the configurations we tested. Here are the best performing ones:
 

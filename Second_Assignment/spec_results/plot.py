@@ -126,15 +126,15 @@ def plot_default(df: pd.DataFrame):
     plt.show(block=True)
 
 
-df = pd.read_csv("results.txt", delim_whitespace=True)
-df2 = pd.read_csv("results_large.txt", delim_whitespace=True)
-df = pd.concat([df, df2])
+df = pd.read_csv("all.csv")
+print(df)
 
-df[["Benchmark", "Config"]] = df["Benchmarks"].str.split("/", expand=True)
-df.drop("Benchmarks", axis=1, inplace=True)
+# df[["Benchmark", "Config"]] = df["Benchmarks"].str.split("/", expand=True)
+# df.drop("Benchmarks", axis=1, inplace=True)
+
 # df["Config"] = df["Config"].str.removeprefix("cl_256_")
-# df = df[df["Config"].str.match("(L2_assoc_\d+.*)|default")]
-df = df[~df["Config"].str.match("(\dGHz)|(DDR3_2133_x64)")]
+df = df[df["Config"].str.match("default")]
+# df = df[~df["Config"].str.match("(\dGHz)|(DDR3_2133_x64)")]
 # df = df[~df["Benchmark"].str.match("specsjeng|speclibm")]
 # df = df[df["Config"].str.match("(cl_256.*)|default")]
 # df = df[~df["Config"].str.match("(Cacheline.*)|(.*GHz)")]
@@ -193,21 +193,25 @@ def cost(df: pd.DataFrame):
 df["Cost"] = cost(df)
 
 
-default_cpi = df[df["Config"] == "default"][["Benchmark","system.cpu.cpi"]]
-default_cpi.rename(columns={"system.cpu.cpi": "default_cpi"}, inplace=True)
-df = df.merge(default_cpi, on="Benchmark")
-df["speedup"] = df["default_cpi"]/df["system.cpu.cpi"]
+# default_cpi = df[df["Config"] == "default"][["Benchmark","system.cpu.cpi"]]
+# default_cpi.rename(columns={"system.cpu.cpi": "default_cpi"}, inplace=True)
+# df = df.merge(default_cpi, on="Benchmark")
+# df["speedup"] = df["default_cpi"]/df["system.cpu.cpi"]
 
 df["pcr"] = (df["speedup"]/df["Cost"])
 
-df = df.groupby("Config").mean().reset_index(level=0).sort_values(by=["speedup"])
-df = df[["Config", "Cost", "speedup", "pcr"]].sort_values(by="pcr").tail(20)
-sns.barplot(data=df, y="Config", x="pcr")
-plt.subplots_adjust(left  = 0.3)
-plt.show(block=True)
+# df = df.groupby("Config").mean().reset_index(level=0).sort_values(by=["speedup"])
+# df = df[["Config", "Cost", "speedup", "pcr"]].sort_values(by="pcr").tail(20)
+# sns.barplot(data=df, y="Config", x="pcr")
+# plt.subplots_adjust(left  = 0.3)
+# plt.show(block=True)
 # df.to_csv("pcr.csv", index=False)
 
-print()
+# print(df.to_string()))
+
+
+df[["Benchmark", "sim_seconds", "system.cpu.cpi", "system.cpu.dcache.overall_miss_rate::total",
+ "system.cpu.icache.overall_miss_rate::total", "system.l2.overall_miss_rate::total" ]].to_csv("defaults.csv", index=False, float_format="%f")
 
 
 #plot_clock_comp(df)
