@@ -324,6 +324,14 @@ $$
 \displaystyle\sum_{i=1}^n w_i
 $$
 
+$$
+y = \frac{x^2}{4}
+$$
+
+$$
+\displaystyle c = \frac{1}{\sum_{i=1}^n w_i}
+$$
+
 
  Inputs $x_1, ... ,x_n$ are the values of CPU configuration parameters, which are normalized using $a_1, ... ,a_n$. Then, a different weight is used for each parameter, $w_1, ... ,w_n$. The sum calculates a cost value for each configuration. For simplicity, this function is expressed as a linear combination of the parameters (in the real world, we know that a non-linear function, with complex relationships between variables, would be more appropriate).
 
