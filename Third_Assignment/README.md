@@ -8,9 +8,9 @@ In general, leakage power is the power demand of an idle system, while dynamic p
 
 In a CPU, dynamic power is caused by logic gates changing state. Leakage power is caused by transistor leakage current and happens even when no change of state is necessary.
 
-Dynamic power depends on the characteristics of the program executed, because certain CPU modules/instructions may consume more power than others. Leakage power is constant.
+Dynamic power depends on the characteristics of the program executed, because certain CPU modules/instructions may consume more power than others. Leakage power is constant and does not get affected by the program.
 
-Since we are talking about power, the execution time of a program doesn't directly affect these two metrics (assuming that the program's resource demands stay constant)
+Since we are talking about power, the execution time of a program doesn't directly affect these two metrics (assuming that the program's resource demands stay constant). But running a program for a long time can heat up the processor which depending on the coolling solution can set limitation on the dynamic power. 
 
 ### 2. Assessing energy usage
 
