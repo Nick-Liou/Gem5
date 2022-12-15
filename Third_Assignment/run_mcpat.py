@@ -10,8 +10,6 @@ import subprocess
 # mcpat produces.
 
 
-
-
 def run_mcpat(mcpat_path: str, gem5_result_path: str):
     return_dict = {}
 
@@ -79,7 +77,6 @@ def run_mcpat(mcpat_path: str, gem5_result_path: str):
     print(return_dict)
 
     return return_dict
-
 
 
 

@@ -58,27 +58,3 @@ for folder in Path(runs_path).iterdir():
 
 
 
-
-
-
-
-
-
-
-# data = pd.read_csv(csv_file)
-
-# power_data = [] #list of dicts
-
-# for index, row in data.iterrows():
-#     folder_name = "/".join([runs_path,row["Benchmark"], row["Config"]])
-#     if Path(folder_name).exists():
-#         result_dict = run_mcpat(mcpat_path, folder_name)
-#         result_dict["Benchmark"] = row["Benchmark"]
-#         result_dict["Config"] = row["Config"]
-#         power_data.append(result_dict)
-#         pd.DataFrame(power_data).to_csv("out.csv")
-#     else:
-#         print("Directory '" + folder_name + "' not found, skipping...")
-
-
-
