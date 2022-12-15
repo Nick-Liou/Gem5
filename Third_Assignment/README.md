@@ -59,6 +59,26 @@ We observe that, if $k$ is small enough, $P_{avg}$ will mostly depend on $P_L$
 
 ### 1. Energy consumption
 
-### 2. 
+Using McPAT, we calculated the power consumption for all the different configurations and benchmarks from the 2nd assignment. Here is a small sample of our results showing total power (Core Runtime Dynamic + L2 Runtime Dynamic power):
+
+|L1d size        |  L1d associativity |
+:-------------:|:--------------:|
+| ![](plots/total_power/L1d.svg) |![](plots/total_power/L1d_assoc.svg) |
+
+All results can be found in the .csv files in this repository.
+
+
+### 2. Peak power consumption for different configurations
+
+| - | - |
+|:-:|:-:|
+|![](plots/peak_power/L1d.svg) | ![](plots/peak_power/L1d_assoc.svg)|
+|![](plots/peak_power/L1i.svg) | ![](plots/peak_power/L1i_assoc.svg)|
+|![](plots/peak_power/L2.svg) | ![](plots/peak_power/L2_assoc.svg)|
+
+![](plots/peak_power/cacheline.svg)
+
+
+
 
 ### 3. 
