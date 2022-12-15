@@ -96,6 +96,19 @@ It's important to mention that two or more configurations can have similar EDAP 
 
 From our results, we observe that the CPUs with the best EDAP value are not necessarily the fastest ones, but they are the ones that ommit resources which are not beneficial. We can see that all configurations (except L1d_assoc_4) that have a better EDAP than the default, are ones that ommit features, having a similar CPI but a much lower power demand.
 
+The best overall CPU configuration, based on the EDAP metric, is "L1d_32kB", which has the following specifications (default also given for comparison):
+
+
+Parameter             | L1d_32kB | default
+:-------------------------:|:-------------------------:|:-----:|
+cacheline_size | 64 | 64 
+l1d_size |32kB  | 64kB 
+l1i_size | 32kB | 32kB
+l2_size | 2MB | 2MB
+l1d_assoc | 2 | 2 
+l1i_assoc | 2 | 2
+l2_assoc | 8 | 8
+
 Here is a graph of our results:
 
 ![](plots/EDAP.svg)
