@@ -92,6 +92,10 @@ For the $Power$ we calculate the sum of "core dynamic power" and "L2 dynamic pow
 
 Using this metric, we can sort the different CPU configurations. The ideal CPU would be the one that minimized the EDAP metric.
 
+It's important to mention that two or more configurations can have similar EDAP values. For example, a very fast but power demanding CPU can have the same EDAP value with a slower low-power CPU (assuming similar area). In that case, we would choose acoording to what we value the most.
+
+From our results, we observe that the CPUs with the best EDAP value are not necessarily the fastest ones, but they are the ones that ommit resources which are not beneficial. We can see that all configurations (except L1d_assoc_4) that have a better EDAP than the default, are ones that ommit features, having a similar CPI but a much lower power demand.
+
 Here is a graph of our results:
 
 ![](plots/EDAP.svg)
