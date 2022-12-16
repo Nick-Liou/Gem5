@@ -60,6 +60,24 @@ The energy that the ARM A9 will consume in the time T since it is under load all
 $$
 E_{ARM  A9} 
 $$
+$$
+E_{ARM \quad  A9} 
+$$
+$$
+E_{ARM  \qquad A9} 
+$$
+$$
+E_{ARM \, A9} 
+$$
+$$
+E_{ARM  \: A9} 
+$$
+$$
+E_{ARM \;  A9} 
+$$
+$$
+E_{ARM \! A9} 
+$$
 
 
 $$
