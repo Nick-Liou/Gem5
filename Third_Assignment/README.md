@@ -31,14 +31,14 @@ In this section, we are assessing whether a Xeon can be more efficient than an A
 Under that assumption, the Xeon would have to consume more than 50x the power compared to the ARM A9 in order be less efficient. 
 
 Here are statistics from McPAT for the two CPUs:
-
+<p align="center">
 | Statistic       | Xeon      | ARM A9   |
 |:----------------|:---------:|:--------:|
 | Peak Power      | 134.938 W | 1.7419 W |
 | Total Leakage   | 36.831 W  | 0.1087 W |
 | Peak Dynamic    | 98.106 W  | 1.6332 W |
 | Runtime Dynamic | 72.919 W  | 2.9605 W |
-
+</p>
 According to these statistics, the Xeon could in theory be more efficient, as the Runtime Dynamic power consumption is only 24.6x higher than the ARM. However, we also observe that the Total Leakage is more than 300x higher.
 
 Thus, if the workload consumes only a small proportion of the Peak Dynamic power, the Xeon can end up having more than 50x average power demand.
@@ -57,48 +57,12 @@ Given the above let T be the time it takes the ARM A9 (which is slower) to compl
 
 The energy that the ARM A9 will consume in the time T since it is under load all that time is 
 
-$$
-E_{ARM  A9} 
-$$
-
-$$
-E_{ARM \quad  A9} 
-$$
-
-$$
-E_{ARM  \qquad A9} 
-$$
-
-$$
-E_{ARM \, A9} 
-$$
-
-$$
-E_{ARM  \: A9} 
-$$
-
-$$
-E_{ARM \;  A9} 
-$$
-
-$$
-E_{ARM \! A9} 
-$$
-
-
-$$
-T * ( {Total  Leakage}_{ARM  A9} ) 
-$$
 
 
 $$
 E_{ARM  A9} = T * ( {Total  Leakage}_{ARM  A9} + {Runtime  Dynamic}_{ARM  A9} ) 
 $$
 
-
-$$
-E_{ARM \, A9} = T * ({Total \; Leakage}_{ARM \, A9} + {Runtime \; Dynamic}_{ARM \, A9}) 
-$$
 
 
 
