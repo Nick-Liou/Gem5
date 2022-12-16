@@ -64,7 +64,7 @@ E_{ARM  A9} = T * ( {Total  Leakage}_{ARM  A9} + {Runtime  Dynamic}_{ARM  A9} )
 $$
 
 <p align="center">
-<img src="https://www.raspberrypi.org/app/uploads/2018/03/RPi-Logo-Reg-SCREEN-199x250.png" alt="Raspberry pi" style="width:20%; border:0;">
+![](plots/total_power/L1d_assoc.svg)
 </p>
 
 ## Step 2: gem5 + McPAT: Optimizing the Energy-Delay Product (EDP)
