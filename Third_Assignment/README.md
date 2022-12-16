@@ -60,6 +60,9 @@ The energy that the ARM A9 will consume in the time T since it is under load all
 $$
 E_{ARM \, A9} = T * ({Total \; Leakage}_{ARM \, A9} + {Runtime \; Dynamic}_{ARM \, A9}) 
 
+
+E_{ARM  A9} = T * ({Total  Leakage}_{ARM  A9} + {Runtime  Dynamic}_{ARM  A9}) 
+
 $$
 
 
