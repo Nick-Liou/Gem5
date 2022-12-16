@@ -61,6 +61,10 @@ $$
 E_{ARM  A9} = T * ( {Total  Leakage}_{ARM  A9} + {Runtime  Dynamic}_{ARM  A9} ) = Τ * 3.0692
 $$
 
+$$
+E_{ARM  A9}  = Τ * 3.0692
+$$
+
 The energy that the Xeon will consume in the time T since it is under load for only the first T/50 time and idle for the rest 49T/50 is:
 
 $$
@@ -76,6 +80,12 @@ $$
 E_{Xeon} = T * ( {Total  Leakage}_{Xeon} +  \dfrac{{Runtime  Dynamic}_{Xeon}}{50}  ) 
 $$
 
+
+$$
+E_{Xeon} = T * 38.28938
+$$
+
+Thus we can clearly see that the ARM A9 is more energy efficient than the Xeon under the assumptions we made.
 
 
 ## Step 2: gem5 + McPAT: Optimizing the Energy-Delay Product (EDP)
