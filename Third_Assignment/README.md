@@ -64,19 +64,16 @@ $$
 
 $$
 T * ( {Total  Leakage}_{ARM  A9} ) 
-
 $$
 
 
 $$
 E_{ARM  A9} = T * ( {Total  Leakage}_{ARM  A9} + {Runtime  Dynamic}_{ARM  A9} ) 
-
 $$
 
 
 $$
 E_{ARM \, A9} = T * ({Total \; Leakage}_{ARM \, A9} + {Runtime \; Dynamic}_{ARM \, A9}) 
-
 $$
 
 
