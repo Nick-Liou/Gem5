@@ -64,8 +64,16 @@ $$
 The energy that the Xeon will consume in the time T since it is under load for only the first T/50 time and idle for the rest 49T/50 is:
 
 $$
-E_{Xeon} = \dfrac{T}{50} * ( {Total  Leakage}_{Xeon} + {Runtime  Dynamic}_{Xeon} ) + \dfrac{49T}{50} * {Total  Leakage}_{Xeon}  = Τ * 69
+E_{Xeon} = \dfrac{T}{50} * ( {Total  Leakage}_{Xeon} + {Runtime  Dynamic}_{Xeon} ) + \dfrac{49T}{50} * {Total  Leakage}_{Xeon} 
+$$
+
+$$
 E_{Xeon} = T * ( {Total  Leakage}_{Xeon} +  \dfrac{1}{50} * {Runtime  Dynamic}_{Xeon} ) 
+$$
+
+
+$$
+E_{Xeon} = T * ( {Total  Leakage}_{Xeon} +  \dfrac{{Runtime  Dynamic}_{Xeon}}{50}  ) 
 $$
 
 
