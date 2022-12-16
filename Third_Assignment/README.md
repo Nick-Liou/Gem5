@@ -53,6 +53,15 @@ Where $P_L$ is the leakage power, $P_D$ is the peak dynamic power, and $k\in[0,1
 
 We observe that, if $k$ is small enough, $P_{avg}$ will mostly depend on $P_L$
 
+Given the above let T be the time it takes the ARM A9 (which is slower) to complete the calculation, we know that the Xeon will complete the task 50 times faster so to find the more efficient we will assume that after the Xeon finishes the workload it will remain idle instead of powering off to save energy (and that there is no other work to be done). 
+
+The energy that the ARM A9 will consume in the time T since it is under load all that time is 
+
+$$
+E_{ARM \, A9} = T * ({Total \; Leakage}_{ARM \, A9} + {Runtime \; Dynamic}_{ARM \, A9}) 
+
+$$
+
 
 
 ## Step 2: gem5 + McPAT: Optimizing the Energy-Delay Product (EDP)
