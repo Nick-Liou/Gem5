@@ -101,7 +101,7 @@ In tasks that are not memory-bound, the speedup is proportional to the change in
 ![clock_comp](spec_results/plots/clock_comp.png)
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/Nick-Liou/Gem5/main/Second_Assignment/spec_results/plots/clock_comp.png" alt="Frequency 1/2/3 GHz graph" style="width:20%; border:0;">
+<img src="https://raw.githubusercontent.com/Nick-Liou/Gem5/main/Second_Assignment/spec_results/plots/clock_comp.png" alt="Frequency 1/2/3 GHz graph" style="width:100%; border:0;">
 </p>
 
 ### Increasing RAM frequency
@@ -205,7 +205,7 @@ From all these, we selected and plotted the best performing configurations for e
 ![](spec_results/plots/optimization2/best_configs_v3.png)
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/Nick-Liou/Gem5/main/Second_Assignment/spec_results/plots/optimization2/best_configs_v3.png" alt="best_configs_v3" style="width:20%; border:0;">
+<img src="https://raw.githubusercontent.com/Nick-Liou/Gem5/main/Second_Assignment/spec_results/plots/optimization2/best_configs_v3.png" alt="best_configs_v3" style="width:100%; border:0;">
 </p>
 
  We can observe that certain characteristics produce the best results, thus we made combinations of them that would lead to optimal performance.
@@ -341,7 +341,7 @@ Using the PCR value, we can rank the configurations we tested. Here are the best
 
 ![](spec_results/plots/pcr/best.png)
 <p align="center">
-<img src="https://raw.githubusercontent.com/Nick-Liou/Gem5/main/Second_Assignment/spec_results/plots/pcr/best.png" alt="Best configs" style="width:20%; border:0;">
+<img src="https://raw.githubusercontent.com/Nick-Liou/Gem5/main/Second_Assignment/spec_results/plots/pcr/best.png" alt="Best configs" style="width:100%; border:0;">
 </p>
 
 Here are the worst performing ones:
