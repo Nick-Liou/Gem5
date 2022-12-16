@@ -64,7 +64,7 @@ E_{ARM  A9} = T * ( {Total  Leakage}_{ARM  A9} + {Runtime  Dynamic}_{ARM  A9} )
 $$
 
 <p align="center">
-![](plots/total_power/L1d_assoc.svg)
+<img src="https://raw.githubusercontent.com/Nick-Liou/Gem5/24335d9cb3c350a395415405cb4a7f3ee661b0cc/Third_Assignment/plots/peak_power/cacheline.svg" alt="cacheline graph" style="width:20%; border:0;">
 </p>
 
 ## Step 2: gem5 + McPAT: Optimizing the Energy-Delay Product (EDP)
