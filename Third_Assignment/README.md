@@ -76,10 +76,6 @@ E_{Xeon} = T * ( {Total  Leakage}_{Xeon} +  \dfrac{1}{50} * {Runtime  Dynamic}_{
 $$
 
 
-$$
-E_{Xeon} = T * ( {Total  Leakage}_{Xeon} +  \dfrac{{Runtime  Dynamic}_{Xeon}}{50}  ) 
-$$
-
 
 $$
 E_{Xeon} = T * 38.28938
